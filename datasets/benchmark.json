@@ -1,0 +1,4313 @@
+{
+  "name": "CodeMind AI custom Python bug benchmark",
+  "version": "1.0",
+  "license": "MIT (same as the project); all programs written for this project",
+  "description": "Small single-function Python programs with one injected bug each, a reference fix, intended behaviour and independent tests. Expected values are computed from the reference solution.",
+  "split_policy": "Deterministic: every 4th example is 'dev' (prompt tuning), the rest are 'eval' (reporting).",
+  "test_policy": "validation_tests may be shown to the repair loop; heldout_tests are used only for scoring.",
+  "counts": {
+    "total": 122,
+    "dev": 30,
+    "eval": 92,
+    "by_category": {
+      "syntax_error": 10,
+      "indentation_error": 8,
+      "undefined_variable": 11,
+      "type_issue": 11,
+      "missing_import": 8,
+      "logical_error": 43,
+      "potential_runtime_error": 13,
+      "unreachable_code": 5,
+      "unused_variable": 4,
+      "bad_practice": 9
+    }
+  },
+  "examples": [
+    {
+      "id": "CM001",
+      "split": "eval",
+      "category": "syntax_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return True if n is even.",
+      "buggy_code": "def is_even(n)\n    return n % 2 == 0\n",
+      "fixed_code": "def is_even(n):\n    return n % 2 == 0\n",
+      "entry_point": "is_even",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "is_even(4)",
+          "expected": "True",
+          "expects_exception": ""
+        },
+        {
+          "call": "is_even(7)",
+          "expected": "False",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "is_even(0)",
+          "expected": "True",
+          "expects_exception": ""
+        },
+        {
+          "call": "is_even(-2)",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "True",
+      "buggy_failing_tests": 4,
+      "error_explanation": "Missing colon after the function signature.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM002",
+      "split": "eval",
+      "category": "syntax_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the square of x.",
+      "buggy_code": "def square(x):\n    return (x * x\n",
+      "fixed_code": "def square(x):\n    return (x * x)\n",
+      "entry_point": "square",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "square(3)",
+          "expected": "9",
+          "expects_exception": ""
+        },
+        {
+          "call": "square(-4)",
+          "expected": "16",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "square(0)",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "square(1.5)",
+          "expected": "2.25",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "9",
+      "buggy_failing_tests": 4,
+      "error_explanation": "Unclosed parenthesis.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM003",
+      "split": "eval",
+      "category": "syntax_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return a greeting for the given name.",
+      "buggy_code": "def greet(name):\n    return \"Hello, \" + name + \"!\n",
+      "fixed_code": "def greet(name):\n    return \"Hello, \" + name + \"!\"\n",
+      "entry_point": "greet",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "greet('Ana')",
+          "expected": "'Hello, Ana!'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "greet('')",
+          "expected": "'Hello, !'",
+          "expects_exception": ""
+        },
+        {
+          "call": "greet('Bo')",
+          "expected": "'Hello, Bo!'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'Hello, Ana!'",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Unterminated string literal.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM004",
+      "split": "dev",
+      "category": "syntax_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return 'positive', 'negative' or 'zero'.",
+      "buggy_code": "def sign(n):\n    if n > 0:\n        return \"positive\"\n    elif n < 0\n        return \"negative\"\n    return \"zero\"\n",
+      "fixed_code": "def sign(n):\n    if n > 0:\n        return \"positive\"\n    elif n < 0:\n        return \"negative\"\n    return \"zero\"\n",
+      "entry_point": "sign",
+      "bug_lines": [
+        4
+      ],
+      "validation_tests": [
+        {
+          "call": "sign(5)",
+          "expected": "'positive'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "sign(-3)",
+          "expected": "'negative'",
+          "expects_exception": ""
+        },
+        {
+          "call": "sign(0)",
+          "expected": "'zero'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'positive'",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Missing colon after elif condition.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM005",
+      "split": "eval",
+      "category": "syntax_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return True if x equals 10.",
+      "buggy_code": "def is_ten(x):\n    if x = 10:\n        return True\n    return False\n",
+      "fixed_code": "def is_ten(x):\n    if x == 10:\n        return True\n    return False\n",
+      "entry_point": "is_ten",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "is_ten(10)",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "is_ten(3)",
+          "expected": "False",
+          "expects_exception": ""
+        },
+        {
+          "call": "is_ten(-10)",
+          "expected": "False",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "True",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Assignment '=' used instead of comparison '=='.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM006",
+      "split": "eval",
+      "category": "syntax_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return a list of squares of 0..n-1.",
+      "buggy_code": "def squares(n):\n    return [i * i for i in range(n]\n",
+      "fixed_code": "def squares(n):\n    return [i * i for i in range(n)]\n",
+      "entry_point": "squares",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "squares(4)",
+          "expected": "[0, 1, 4, 9]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "squares(0)",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "squares(1)",
+          "expected": "[0]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[0, 1, 4, 9]",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Mismatched brackets in the comprehension.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM007",
+      "split": "eval",
+      "category": "syntax_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the largest element of a non-empty list.",
+      "buggy_code": "def largest(xs):\n    best = xs[0]\n    for x in xs\n        if x > best:\n            best = x\n    return best\n",
+      "fixed_code": "def largest(xs):\n    best = xs[0]\n    for x in xs:\n        if x > best:\n            best = x\n    return best\n",
+      "entry_point": "largest",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "largest([3, 9, 2])",
+          "expected": "9",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "largest([-5, -1])",
+          "expected": "-1",
+          "expects_exception": ""
+        },
+        {
+          "call": "largest([7])",
+          "expected": "7",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "9",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Missing colon after the for statement.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM008",
+      "split": "dev",
+      "category": "syntax_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return a dict mapping each word to its length.",
+      "buggy_code": "def lengths(words):\n    return {w: len(w) for w in words\n",
+      "fixed_code": "def lengths(words):\n    return {w: len(w) for w in words}\n",
+      "entry_point": "lengths",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "lengths(['a', 'abc'])",
+          "expected": "{'a': 1, 'abc': 3}",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "lengths([])",
+          "expected": "{}",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "{'a': 1, 'abc': 3}",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Unclosed dictionary comprehension brace.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM009",
+      "split": "eval",
+      "category": "syntax_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return n factorial.",
+      "buggy_code": "def fact(n):\n    result = 1\n    for i in range(2, n + 1):\n        result *= i\n    retrun result\n",
+      "fixed_code": "def fact(n):\n    result = 1\n    for i in range(2, n + 1):\n        result *= i\n    return result\n",
+      "entry_point": "fact",
+      "bug_lines": [
+        5
+      ],
+      "validation_tests": [
+        {
+          "call": "fact(5)",
+          "expected": "120",
+          "expects_exception": ""
+        },
+        {
+          "call": "fact(0)",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "fact(1)",
+          "expected": "1",
+          "expects_exception": ""
+        },
+        {
+          "call": "fact(10)",
+          "expected": "3628800",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "120",
+      "buggy_failing_tests": 4,
+      "error_explanation": "Misspelled keyword 'return'.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM010",
+      "split": "eval",
+      "category": "syntax_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the average of two numbers.",
+      "buggy_code": "def avg(a, b):\n    return (a + b) / 2)\n",
+      "fixed_code": "def avg(a, b):\n    return (a + b) / 2\n",
+      "entry_point": "avg",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "avg(2, 4)",
+          "expected": "3.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "avg(1, 2)",
+          "expected": "1.5",
+          "expects_exception": ""
+        },
+        {
+          "call": "avg(-3, 3)",
+          "expected": "0.0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "3.0",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Extra closing parenthesis.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM011",
+      "split": "eval",
+      "category": "indentation_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the larger of two numbers.",
+      "buggy_code": "def maximum(a, b):\n    if a > b:\n    return a\n    return b\n",
+      "fixed_code": "def maximum(a, b):\n    if a > b:\n        return a\n    return b\n",
+      "entry_point": "maximum",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "maximum(3, 9)",
+          "expected": "9",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "maximum(9, 3)",
+          "expected": "9",
+          "expects_exception": ""
+        },
+        {
+          "call": "maximum(4, 4)",
+          "expected": "4",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "9",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Body of the if statement is not indented.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM012",
+      "split": "dev",
+      "category": "indentation_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the sum of a list.",
+      "buggy_code": "def total(xs):\n    s = 0\n    for x in xs:\n    s += x\n    return s\n",
+      "fixed_code": "def total(xs):\n    s = 0\n    for x in xs:\n        s += x\n    return s\n",
+      "entry_point": "total",
+      "bug_lines": [
+        4
+      ],
+      "validation_tests": [
+        {
+          "call": "total([1, 2, 3])",
+          "expected": "6",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "total([])",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "total([-1, 1])",
+          "expected": "0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "6",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Loop body is not indented.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM013",
+      "split": "eval",
+      "category": "indentation_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the absolute value of n.",
+      "buggy_code": "def absolute(n):\n  if n < 0:\n        return -n\n    return n\n",
+      "fixed_code": "def absolute(n):\n    if n < 0:\n        return -n\n    return n\n",
+      "entry_point": "absolute",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "absolute(-5)",
+          "expected": "5",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "absolute(5)",
+          "expected": "5",
+          "expects_exception": ""
+        },
+        {
+          "call": "absolute(0)",
+          "expected": "0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "5",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Inconsistent dedent does not match any outer level.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM014",
+      "split": "eval",
+      "category": "indentation_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the string reversed.",
+      "buggy_code": "def reverse(s):\nreturn s[::-1]\n",
+      "fixed_code": "def reverse(s):\n    return s[::-1]\n",
+      "entry_point": "reverse",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "reverse('abc')",
+          "expected": "'cba'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "reverse('')",
+          "expected": "''",
+          "expects_exception": ""
+        },
+        {
+          "call": "reverse('a')",
+          "expected": "'a'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'cba'",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Function body is not indented.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM015",
+      "split": "eval",
+      "category": "indentation_error",
+      "difficulty": "medium",
+      "intended_behavior": "Count vowels in a string.",
+      "buggy_code": "def vowels(s):\n    count = 0\n    for ch in s.lower():\n        if ch in \"aeiou\":\n            count += 1\n      return count\n",
+      "fixed_code": "def vowels(s):\n    count = 0\n    for ch in s.lower():\n        if ch in \"aeiou\":\n            count += 1\n    return count\n",
+      "entry_point": "vowels",
+      "bug_lines": [
+        6
+      ],
+      "validation_tests": [
+        {
+          "call": "vowels('Hello')",
+          "expected": "2",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "vowels('xyz')",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "vowels('AEIOU')",
+          "expected": "5",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "2",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Return statement has an invalid indentation level.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM016",
+      "split": "dev",
+      "category": "indentation_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return 'even' or 'odd'.",
+      "buggy_code": "def parity(n):\n    if n % 2 == 0:\n        return \"even\"\n    else:\n    return \"odd\"\n",
+      "fixed_code": "def parity(n):\n    if n % 2 == 0:\n        return \"even\"\n    else:\n        return \"odd\"\n",
+      "entry_point": "parity",
+      "bug_lines": [
+        5
+      ],
+      "validation_tests": [
+        {
+          "call": "parity(2)",
+          "expected": "'even'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "parity(3)",
+          "expected": "'odd'",
+          "expects_exception": ""
+        },
+        {
+          "call": "parity(0)",
+          "expected": "'even'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'even'",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Else body is not indented.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM017",
+      "split": "eval",
+      "category": "indentation_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the list without negative numbers.",
+      "buggy_code": "def non_negative(xs):\n    out = []\n    for x in xs:\n        if x >= 0:\n            out.append(x)\n        return out\n",
+      "fixed_code": "def non_negative(xs):\n    out = []\n    for x in xs:\n        if x >= 0:\n            out.append(x)\n    return out\n",
+      "entry_point": "non_negative",
+      "bug_lines": [
+        6
+      ],
+      "validation_tests": [
+        {
+          "call": "non_negative([1, -2, 3])",
+          "expected": "[1, 3]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "non_negative([-1, -2])",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "non_negative([0, 5, 6])",
+          "expected": "[0, 5, 6]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[1, 3]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Return is indented inside the loop, so the function returns after the first element.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM018",
+      "split": "eval",
+      "category": "indentation_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the number of words longer than k characters.",
+      "buggy_code": "def long_words(words, k):\n    count = 0\n    for w in words:\n        if len(w) > k:\n            count += 1\n            return count\n    return count\n",
+      "fixed_code": "def long_words(words, k):\n    count = 0\n    for w in words:\n        if len(w) > k:\n            count += 1\n    return count\n",
+      "entry_point": "long_words",
+      "bug_lines": [
+        6
+      ],
+      "validation_tests": [
+        {
+          "call": "long_words(['aa', 'bbbb', 'ccccc'], 3)",
+          "expected": "2",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "long_words([], 1)",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "long_words(['x'], 0)",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "2",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Return is wrongly nested inside the if block, ending the loop early.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM019",
+      "split": "eval",
+      "category": "undefined_variable",
+      "difficulty": "easy",
+      "intended_behavior": "Return the average of a non-empty list.",
+      "buggy_code": "def average(numbers):\n    total = 0\n    for n in numbers:\n        total += n\n    return totl / len(numbers)\n",
+      "fixed_code": "def average(numbers):\n    total = 0\n    for n in numbers:\n        total += n\n    return total / len(numbers)\n",
+      "entry_point": "average",
+      "bug_lines": [
+        5
+      ],
+      "validation_tests": [
+        {
+          "call": "average([1, 2, 3])",
+          "expected": "2.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "average([5])",
+          "expected": "5.0",
+          "expects_exception": ""
+        },
+        {
+          "call": "average([-2, 2])",
+          "expected": "0.0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "2.0",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Typo: 'totl' instead of 'total'.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM020",
+      "split": "dev",
+      "category": "undefined_variable",
+      "difficulty": "easy",
+      "intended_behavior": "Return the area of a rectangle.",
+      "buggy_code": "def area(width, height):\n    return width * heigth\n",
+      "fixed_code": "def area(width, height):\n    return width * height\n",
+      "entry_point": "area",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "area(2, 3)",
+          "expected": "6",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "area(0, 5)",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "area(1.5, 2)",
+          "expected": "3.0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "6",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Typo: 'heigth' is undefined.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM021",
+      "split": "eval",
+      "category": "undefined_variable",
+      "difficulty": "easy",
+      "intended_behavior": "Return the number of characters in s, excluding spaces.",
+      "buggy_code": "def count_chars(s):\n    cleaned = s.replace(\" \", \"\")\n    return len(clean)\n",
+      "fixed_code": "def count_chars(s):\n    cleaned = s.replace(\" \", \"\")\n    return len(cleaned)\n",
+      "entry_point": "count_chars",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "count_chars('a b c')",
+          "expected": "3",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "count_chars('')",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "count_chars('abc')",
+          "expected": "3",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "3",
+      "buggy_failing_tests": 3,
+      "error_explanation": "'clean' was never defined.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM022",
+      "split": "eval",
+      "category": "undefined_variable",
+      "difficulty": "medium",
+      "intended_behavior": "Return the maximum value and its index.",
+      "buggy_code": "def max_with_index(xs):\n    best_i = 0\n    for i in range(1, len(xs)):\n        if xs[i] > xs[best_i]:\n            best_i = i\n    return xs[best_i], best_index\n",
+      "fixed_code": "def max_with_index(xs):\n    best_i = 0\n    for i in range(1, len(xs)):\n        if xs[i] > xs[best_i]:\n            best_i = i\n    return xs[best_i], best_i\n",
+      "entry_point": "max_with_index",
+      "bug_lines": [
+        6
+      ],
+      "validation_tests": [
+        {
+          "call": "max_with_index([3, 8, 1])",
+          "expected": "(8, 1)",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "max_with_index([5])",
+          "expected": "(5, 0)",
+          "expects_exception": ""
+        },
+        {
+          "call": "max_with_index([1, 2, 2])",
+          "expected": "(2, 1)",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "(8, 1)",
+      "buggy_failing_tests": 3,
+      "error_explanation": "'best_index' is undefined; the variable is called 'best_i'.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM023",
+      "split": "eval",
+      "category": "undefined_variable",
+      "difficulty": "easy",
+      "intended_behavior": "Convert Celsius to Fahrenheit.",
+      "buggy_code": "def to_fahrenheit(c):\n    return c * 9 / 5 + offset\n",
+      "fixed_code": "def to_fahrenheit(c):\n    offset = 32\n    return c * 9 / 5 + offset\n",
+      "entry_point": "to_fahrenheit",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "to_fahrenheit(0)",
+          "expected": "32.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "to_fahrenheit(100)",
+          "expected": "212.0",
+          "expects_exception": ""
+        },
+        {
+          "call": "to_fahrenheit(-40)",
+          "expected": "-40.0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "32.0",
+      "buggy_failing_tests": 3,
+      "error_explanation": "'offset' is used before being defined.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM024",
+      "split": "dev",
+      "category": "undefined_variable",
+      "difficulty": "medium",
+      "intended_behavior": "Return the list of words in upper case.",
+      "buggy_code": "def shout(words):\n    return [word.upper() for w in words]\n",
+      "fixed_code": "def shout(words):\n    return [w.upper() for w in words]\n",
+      "entry_point": "shout",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "shout(['a', 'bc'])",
+          "expected": "['A', 'BC']",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "shout([])",
+          "expected": "[]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "['A', 'BC']",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Comprehension uses 'word' but the loop variable is 'w'.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM025",
+      "split": "eval",
+      "category": "undefined_variable",
+      "difficulty": "medium",
+      "intended_behavior": "Count occurrences of each character.",
+      "buggy_code": "def char_counts(s):\n    counts = {}\n    for ch in s:\n        counts[ch] = count.get(ch, 0) + 1\n    return counts\n",
+      "fixed_code": "def char_counts(s):\n    counts = {}\n    for ch in s:\n        counts[ch] = counts.get(ch, 0) + 1\n    return counts\n",
+      "entry_point": "char_counts",
+      "bug_lines": [
+        4
+      ],
+      "validation_tests": [
+        {
+          "call": "char_counts('aab')",
+          "expected": "{'a': 2, 'b': 1}",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "char_counts('')",
+          "expected": "{}",
+          "expects_exception": ""
+        },
+        {
+          "call": "char_counts('xyz')",
+          "expected": "{'x': 1, 'y': 1, 'z': 1}",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "{'a': 2, 'b': 1}",
+      "buggy_failing_tests": 2,
+      "error_explanation": "'count' is a typo for 'counts'.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM026",
+      "split": "eval",
+      "category": "undefined_variable",
+      "difficulty": "easy",
+      "intended_behavior": "Return the full name 'first last'.",
+      "buggy_code": "def full_name(first, last):\n    return frist + \" \" + last\n",
+      "fixed_code": "def full_name(first, last):\n    return first + \" \" + last\n",
+      "entry_point": "full_name",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "full_name('Ada', 'Lovelace')",
+          "expected": "'Ada Lovelace'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "full_name('A', 'B')",
+          "expected": "'A B'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'Ada Lovelace'",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Typo 'frist'.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM027",
+      "split": "eval",
+      "category": "undefined_variable",
+      "difficulty": "medium",
+      "intended_behavior": "Return the running totals of a list.",
+      "buggy_code": "def running_totals(xs):\n    out = []\n    for x in xs:\n        acc += x\n        out.append(acc)\n    return out\n",
+      "fixed_code": "def running_totals(xs):\n    out = []\n    acc = 0\n    for x in xs:\n        acc += x\n        out.append(acc)\n    return out\n",
+      "entry_point": "running_totals",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "running_totals([1, 2, 3])",
+          "expected": "[1, 3, 6]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "running_totals([])",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "running_totals([5, -5])",
+          "expected": "[5, 0]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[1, 3, 6]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "'acc' is never initialised (UnboundLocalError).",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM028",
+      "split": "dev",
+      "category": "undefined_variable",
+      "difficulty": "medium",
+      "intended_behavior": "Return the number of even numbers in the list.",
+      "buggy_code": "def count_even(nums):\n    for n in nums:\n        if n % 2 == 0:\n            evens += 1\n    return evens\n",
+      "fixed_code": "def count_even(nums):\n    evens = 0\n    for n in nums:\n        if n % 2 == 0:\n            evens += 1\n    return evens\n",
+      "entry_point": "count_even",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "count_even([1, 2, 4])",
+          "expected": "2",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "count_even([])",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "count_even([1, 3])",
+          "expected": "0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "2",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Counter 'evens' is never initialised.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM029",
+      "split": "eval",
+      "category": "type_issue",
+      "difficulty": "easy",
+      "intended_behavior": "Return 'NAME is AGE years old'.",
+      "buggy_code": "def describe(name, age):\n    return name + \" is \" + age + \" years old\"\n",
+      "fixed_code": "def describe(name, age):\n    return name + \" is \" + str(age) + \" years old\"\n",
+      "entry_point": "describe",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "describe('Alice', 30)",
+          "expected": "'Alice is 30 years old'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "describe('Bob', 0)",
+          "expected": "'Bob is 0 years old'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'Alice is 30 years old'",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Cannot concatenate str and int; convert with str().",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM030",
+      "split": "eval",
+      "category": "type_issue",
+      "difficulty": "easy",
+      "intended_behavior": "Return the sum of numbers given as strings.",
+      "buggy_code": "def add_strings(a, b):\n    return a + b\n",
+      "fixed_code": "def add_strings(a, b):\n    return int(a) + int(b)\n",
+      "entry_point": "add_strings",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "add_strings('2', '3')",
+          "expected": "5",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "add_strings('10', '-4')",
+          "expected": "6",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "5",
+      "buggy_failing_tests": 2,
+      "error_explanation": "String concatenation instead of numeric addition.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM031",
+      "split": "eval",
+      "category": "type_issue",
+      "difficulty": "medium",
+      "intended_behavior": "Return the length of each item in a list of strings as a list.",
+      "buggy_code": "def item_lengths(items):\n    return len(items)\n",
+      "fixed_code": "def item_lengths(items):\n    return [len(item) for item in items]\n",
+      "entry_point": "item_lengths",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "item_lengths(['ab', 'c'])",
+          "expected": "[2, 1]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "item_lengths([])",
+          "expected": "[]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[2, 1]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Returns the list length instead of item lengths.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM032",
+      "split": "dev",
+      "category": "type_issue",
+      "difficulty": "medium",
+      "intended_behavior": "Return the mean as a float, e.g. mean([1, 2]) == 1.5.",
+      "buggy_code": "def mean(xs):\n    return sum(xs) // len(xs)\n",
+      "fixed_code": "def mean(xs):\n    return sum(xs) / len(xs)\n",
+      "entry_point": "mean",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "mean([1, 2])",
+          "expected": "1.5",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "mean([3, 4, 5])",
+          "expected": "4.0",
+          "expects_exception": ""
+        },
+        {
+          "call": "mean([1])",
+          "expected": "1.0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "1.5",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Integer division '//' truncates the result.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM033",
+      "split": "eval",
+      "category": "type_issue",
+      "difficulty": "medium",
+      "intended_behavior": "Return a new list with x appended, without modifying the input list.",
+      "buggy_code": "def with_item(xs, x):\n    return xs.append(x)\n",
+      "fixed_code": "def with_item(xs, x):\n    return xs + [x]\n",
+      "entry_point": "with_item",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "with_item([1], 2)",
+          "expected": "[1, 2]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "with_item([], 'a')",
+          "expected": "['a']",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[1, 2]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "list.append returns None.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM034",
+      "split": "eval",
+      "category": "type_issue",
+      "difficulty": "medium",
+      "intended_behavior": "Return the words of a sentence sorted alphabetically.",
+      "buggy_code": "def sorted_words(sentence):\n    words = sentence.split()\n    return words.sort()\n",
+      "fixed_code": "def sorted_words(sentence):\n    words = sentence.split()\n    return sorted(words)\n",
+      "entry_point": "sorted_words",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "sorted_words('b a c')",
+          "expected": "['a', 'b', 'c']",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "sorted_words('')",
+          "expected": "[]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "['a', 'b', 'c']",
+      "buggy_failing_tests": 2,
+      "error_explanation": "list.sort() sorts in place and returns None.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM035",
+      "split": "eval",
+      "category": "type_issue",
+      "difficulty": "easy",
+      "intended_behavior": "Return the number repeated as a string n times, e.g. repeat(7, 3) == '777'.",
+      "buggy_code": "def repeat(digit, n):\n    return digit * n\n",
+      "fixed_code": "def repeat(digit, n):\n    return str(digit) * n\n",
+      "entry_point": "repeat",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "repeat(7, 3)",
+          "expected": "'777'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "repeat(0, 1)",
+          "expected": "'0'",
+          "expects_exception": ""
+        },
+        {
+          "call": "repeat(5, 0)",
+          "expected": "''",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'777'",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Multiplying an int multiplies numerically.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM036",
+      "split": "dev",
+      "category": "type_issue",
+      "difficulty": "medium",
+      "intended_behavior": "Parse 'a,b,c' integers and return their sum.",
+      "buggy_code": "def csv_sum(text):\n    return sum(text.split(\",\"))\n",
+      "fixed_code": "def csv_sum(text):\n    return sum(int(part) for part in text.split(\",\"))\n",
+      "entry_point": "csv_sum",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "csv_sum('1,2,3')",
+          "expected": "6",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "csv_sum('10')",
+          "expected": "10",
+          "expects_exception": ""
+        },
+        {
+          "call": "csv_sum('-1,1')",
+          "expected": "0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "6",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Cannot sum strings; convert to int first.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM037",
+      "split": "eval",
+      "category": "type_issue",
+      "difficulty": "medium",
+      "intended_behavior": "Return the keys of a dict as a sorted list.",
+      "buggy_code": "def sorted_keys(d):\n    return d.keys().sort()\n",
+      "fixed_code": "def sorted_keys(d):\n    return sorted(d.keys())\n",
+      "entry_point": "sorted_keys",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "sorted_keys({'b': 1, 'a': 2})",
+          "expected": "['a', 'b']",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "sorted_keys({})",
+          "expected": "[]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "['a', 'b']",
+      "buggy_failing_tests": 2,
+      "error_explanation": "dict_keys has no sort() method.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM038",
+      "split": "eval",
+      "category": "type_issue",
+      "difficulty": "hard",
+      "intended_behavior": "Return the first character of each word as a string.",
+      "buggy_code": "def initials(sentence):\n    return \"\".join(word[0] for word in sentence)\n",
+      "fixed_code": "def initials(sentence):\n    return \"\".join(word[0] for word in sentence.split())\n",
+      "entry_point": "initials",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "initials('hello big world')",
+          "expected": "'hbw'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "initials('a')",
+          "expected": "'a'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'hbw'",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Iterating a string yields characters, not words.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM039",
+      "split": "eval",
+      "category": "missing_import",
+      "difficulty": "easy",
+      "intended_behavior": "Return the hypotenuse of a right triangle.",
+      "buggy_code": "def hypotenuse(a, b):\n    return math.sqrt(a ** 2 + b ** 2)\n",
+      "fixed_code": "import math\n\n\ndef hypotenuse(a, b):\n    return math.sqrt(a ** 2 + b ** 2)\n",
+      "entry_point": "hypotenuse",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "hypotenuse(3, 4)",
+          "expected": "5.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "hypotenuse(5, 12)",
+          "expected": "13.0",
+          "expects_exception": ""
+        },
+        {
+          "call": "hypotenuse(0, 0)",
+          "expected": "0.0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "5.0",
+      "buggy_failing_tests": 3,
+      "error_explanation": "'math' is used but never imported.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM040",
+      "split": "dev",
+      "category": "missing_import",
+      "difficulty": "easy",
+      "intended_behavior": "Return the circle area for radius r.",
+      "buggy_code": "def circle_area(r):\n    return pi * r * r\n",
+      "fixed_code": "from math import pi\n\n\ndef circle_area(r):\n    return pi * r * r\n",
+      "entry_point": "circle_area",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "circle_area(1)",
+          "expected": "3.141592653589793",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "circle_area(0)",
+          "expected": "0.0",
+          "expects_exception": ""
+        },
+        {
+          "call": "circle_area(2.5)",
+          "expected": "19.634954084936208",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "3.141592653589793",
+      "buggy_failing_tests": 3,
+      "error_explanation": "'pi' is not imported from math.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM041",
+      "split": "eval",
+      "category": "missing_import",
+      "difficulty": "medium",
+      "intended_behavior": "Return the most common item.",
+      "buggy_code": "def most_common(items):\n    return Counter(items).most_common(1)[0][0]\n",
+      "fixed_code": "from collections import Counter\n\n\ndef most_common(items):\n    return Counter(items).most_common(1)[0][0]\n",
+      "entry_point": "most_common",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "most_common([1, 2, 2, 3])",
+          "expected": "2",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "most_common(['a'])",
+          "expected": "'a'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "2",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Counter is not imported from collections.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM042",
+      "split": "eval",
+      "category": "missing_import",
+      "difficulty": "medium",
+      "intended_behavior": "Group words by their first letter.",
+      "buggy_code": "def group_by_letter(words):\n    groups = defaultdict(list)\n    for w in words:\n        groups[w[0]].append(w)\n    return dict(groups)\n",
+      "fixed_code": "from collections import defaultdict\n\n\ndef group_by_letter(words):\n    groups = defaultdict(list)\n    for w in words:\n        groups[w[0]].append(w)\n    return dict(groups)\n",
+      "entry_point": "group_by_letter",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "group_by_letter(['apple', 'avocado', 'banana'])",
+          "expected": "{'a': ['apple', 'avocado'], 'b': ['banana']}",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "group_by_letter([])",
+          "expected": "{}",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "{'a': ['apple', 'avocado'], 'b': ['banana']}",
+      "buggy_failing_tests": 2,
+      "error_explanation": "defaultdict is not imported.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM043",
+      "split": "eval",
+      "category": "missing_import",
+      "difficulty": "easy",
+      "intended_behavior": "Return the greatest common divisor of a and b.",
+      "buggy_code": "def gcd(a, b):\n    return math.gcd(a, b)\n",
+      "fixed_code": "import math\n\n\ndef gcd(a, b):\n    return math.gcd(a, b)\n",
+      "entry_point": "gcd",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "gcd(12, 18)",
+          "expected": "6",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "gcd(7, 5)",
+          "expected": "1",
+          "expects_exception": ""
+        },
+        {
+          "call": "gcd(0, 9)",
+          "expected": "9",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "6",
+      "buggy_failing_tests": 3,
+      "error_explanation": "'math' module not imported.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM044",
+      "split": "dev",
+      "category": "missing_import",
+      "difficulty": "medium",
+      "intended_behavior": "Return the product of all numbers.",
+      "buggy_code": "def product(xs):\n    return reduce(lambda a, b: a * b, xs, 1)\n",
+      "fixed_code": "from functools import reduce\n\n\ndef product(xs):\n    return reduce(lambda a, b: a * b, xs, 1)\n",
+      "entry_point": "product",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "product([1, 2, 3, 4])",
+          "expected": "24",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "product([])",
+          "expected": "1",
+          "expects_exception": ""
+        },
+        {
+          "call": "product([5])",
+          "expected": "5",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "24",
+      "buggy_failing_tests": 3,
+      "error_explanation": "reduce is in functools in Python 3.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM045",
+      "split": "eval",
+      "category": "missing_import",
+      "difficulty": "medium",
+      "intended_behavior": "Return the k smallest numbers in ascending order.",
+      "buggy_code": "def k_smallest(xs, k):\n    return heapq.nsmallest(k, xs)\n",
+      "fixed_code": "import heapq\n\n\ndef k_smallest(xs, k):\n    return heapq.nsmallest(k, xs)\n",
+      "entry_point": "k_smallest",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "k_smallest([5, 1, 4, 2], 2)",
+          "expected": "[1, 2]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "k_smallest([], 3)",
+          "expected": "[]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[1, 2]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "heapq is not imported.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM046",
+      "split": "eval",
+      "category": "missing_import",
+      "difficulty": "medium",
+      "intended_behavior": "Parse a JSON string and return the value of key 'name'.",
+      "buggy_code": "def get_name(text):\n    return json.loads(text)[\"name\"]\n",
+      "fixed_code": "import json\n\n\ndef get_name(text):\n    return json.loads(text)[\"name\"]\n",
+      "entry_point": "get_name",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "get_name('{\"name\": \"Ana\"}')",
+          "expected": "'Ana'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "get_name('{\"name\": \"Bo\", \"age\": 3}')",
+          "expected": "'Bo'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'Ana'",
+      "buggy_failing_tests": 2,
+      "error_explanation": "json is not imported.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM047",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the sum of integers from 1 to n inclusive.",
+      "buggy_code": "def sum_to_n(n):\n    total = 0\n    for i in range(1, n):\n        total += i\n    return total\n",
+      "fixed_code": "def sum_to_n(n):\n    total = 0\n    for i in range(1, n + 1):\n        total += i\n    return total\n",
+      "entry_point": "sum_to_n",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "sum_to_n(5)",
+          "expected": "15",
+          "expects_exception": ""
+        },
+        {
+          "call": "sum_to_n(1)",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "sum_to_n(0)",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "sum_to_n(100)",
+          "expected": "5050",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "15",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Off-by-one: range excludes n.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM048",
+      "split": "dev",
+      "category": "logical_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the sum of a and b.",
+      "buggy_code": "def add(a, b):\n    return a - b\n",
+      "fixed_code": "def add(a, b):\n    return a + b\n",
+      "entry_point": "add",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "add(2, 3)",
+          "expected": "5",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "add(-1, 1)",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "add(0, 0)",
+          "expected": "0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "5",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Wrong operator: subtraction instead of addition.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM049",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return True if n is a leap year.",
+      "buggy_code": "def is_leap(year):\n    return year % 4 == 0 and year % 100 != 0\n",
+      "fixed_code": "def is_leap(year):\n    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)\n",
+      "entry_point": "is_leap",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "is_leap(2000)",
+          "expected": "True",
+          "expects_exception": ""
+        },
+        {
+          "call": "is_leap(1900)",
+          "expected": "False",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "is_leap(2024)",
+          "expected": "True",
+          "expects_exception": ""
+        },
+        {
+          "call": "is_leap(2023)",
+          "expected": "False",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "True",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Missing the divisible-by-400 rule.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM050",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the index of target in a sorted list, or -1.",
+      "buggy_code": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low < high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1\n",
+      "fixed_code": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1\n",
+      "entry_point": "binary_search",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "binary_search([1, 3, 5, 7], 7)",
+          "expected": "3",
+          "expects_exception": ""
+        },
+        {
+          "call": "binary_search([1, 3, 5], 4)",
+          "expected": "-1",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "binary_search([2], 2)",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "binary_search([], 1)",
+          "expected": "-1",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "3",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Loop condition must be low <= high to check the last element.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM051",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the maximum of a list of numbers.",
+      "buggy_code": "def find_max(xs):\n    best = 0\n    for x in xs:\n        if x > best:\n            best = x\n    return best\n",
+      "fixed_code": "def find_max(xs):\n    best = xs[0]\n    for x in xs:\n        if x > best:\n            best = x\n    return best\n",
+      "entry_point": "find_max",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "find_max([3, 7, 2])",
+          "expected": "7",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "find_max([-5, -2, -9])",
+          "expected": "-2",
+          "expects_exception": ""
+        },
+        {
+          "call": "find_max([4])",
+          "expected": "4",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "7",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Starting at 0 fails for negative lists.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM052",
+      "split": "dev",
+      "category": "logical_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return True if s is a palindrome (case-insensitive).",
+      "buggy_code": "def is_palindrome(s):\n    return s == s[::-1]\n",
+      "fixed_code": "def is_palindrome(s):\n    s = s.lower()\n    return s == s[::-1]\n",
+      "entry_point": "is_palindrome",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "is_palindrome('Racecar')",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "is_palindrome('abc')",
+          "expected": "False",
+          "expects_exception": ""
+        },
+        {
+          "call": "is_palindrome('')",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "True",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Case is not normalised.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM053",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return n factorial (n >= 0).",
+      "buggy_code": "def factorial(n):\n    if n == 0:\n        return 0\n    return n * factorial(n - 1)\n",
+      "fixed_code": "def factorial(n):\n    if n == 0:\n        return 1\n    return n * factorial(n - 1)\n",
+      "entry_point": "factorial",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "factorial(0)",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "factorial(5)",
+          "expected": "120",
+          "expects_exception": ""
+        },
+        {
+          "call": "factorial(1)",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "1",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Base case must return 1.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM054",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the n-th Fibonacci number with fib(0)=0 and fib(1)=1.",
+      "buggy_code": "def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return b\n",
+      "fixed_code": "def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n",
+      "entry_point": "fib",
+      "bug_lines": [
+        5
+      ],
+      "validation_tests": [
+        {
+          "call": "fib(0)",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "fib(1)",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "fib(2)",
+          "expected": "1",
+          "expects_exception": ""
+        },
+        {
+          "call": "fib(10)",
+          "expected": "55",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "0",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Returns the next Fibonacci number instead of the n-th.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM055",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the number of items strictly greater than the threshold.",
+      "buggy_code": "def count_above(xs, threshold):\n    return sum(1 for x in xs if x >= threshold)\n",
+      "fixed_code": "def count_above(xs, threshold):\n    return sum(1 for x in xs if x > threshold)\n",
+      "entry_point": "count_above",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "count_above([1, 5, 5, 9], 5)",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "count_above([], 0)",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "count_above([1, 2], 0)",
+          "expected": "2",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "1",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Uses >= although strictly greater is required.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM056",
+      "split": "dev",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return True if n is prime.",
+      "buggy_code": "def is_prime(n):\n    if n < 2:\n        return False\n    for d in range(2, n // 2):\n        if n % d == 0:\n            return False\n    return True\n",
+      "fixed_code": "def is_prime(n):\n    if n < 2:\n        return False\n    for d in range(2, int(n ** 0.5) + 1):\n        if n % d == 0:\n            return False\n    return True\n",
+      "entry_point": "is_prime",
+      "bug_lines": [
+        4
+      ],
+      "validation_tests": [
+        {
+          "call": "is_prime(4)",
+          "expected": "False",
+          "expects_exception": ""
+        },
+        {
+          "call": "is_prime(2)",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "is_prime(9)",
+          "expected": "False",
+          "expects_exception": ""
+        },
+        {
+          "call": "is_prime(17)",
+          "expected": "True",
+          "expects_exception": ""
+        },
+        {
+          "call": "is_prime(1)",
+          "expected": "False",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "False",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Loop bound n // 2 misses divisors for small numbers such as 4.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM057",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the last element of a non-empty list.",
+      "buggy_code": "def last(xs):\n    return xs[len(xs)]\n",
+      "fixed_code": "def last(xs):\n    return xs[-1]\n",
+      "entry_point": "last",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "last([1, 2, 3])",
+          "expected": "3",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "last(['a'])",
+          "expected": "'a'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "3",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Index len(xs) is out of range.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM058",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the second largest distinct value.",
+      "buggy_code": "def second_largest(xs):\n    values = sorted(xs)\n    return values[-2]\n",
+      "fixed_code": "def second_largest(xs):\n    values = sorted(set(xs))\n    return values[-2]\n",
+      "entry_point": "second_largest",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "second_largest([1, 3, 3])",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "second_largest([5, 1, 4])",
+          "expected": "4",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "1",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Duplicates are not removed.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM059",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the list reversed (without modifying the input).",
+      "buggy_code": "def reversed_list(xs):\n    out = []\n    for i in range(len(xs) - 1, 0, -1):\n        out.append(xs[i])\n    return out\n",
+      "fixed_code": "def reversed_list(xs):\n    out = []\n    for i in range(len(xs) - 1, -1, -1):\n        out.append(xs[i])\n    return out\n",
+      "entry_point": "reversed_list",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "reversed_list([1, 2, 3])",
+          "expected": "[3, 2, 1]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "reversed_list([])",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "reversed_list(['a'])",
+          "expected": "['a']",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[3, 2, 1]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Range stops before index 0.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM060",
+      "split": "dev",
+      "category": "logical_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the grade: A for >= 90, B for >= 80, C otherwise.",
+      "buggy_code": "def grade(score):\n    if score >= 80:\n        return \"B\"\n    elif score >= 90:\n        return \"A\"\n    return \"C\"\n",
+      "fixed_code": "def grade(score):\n    if score >= 90:\n        return \"A\"\n    elif score >= 80:\n        return \"B\"\n    return \"C\"\n",
+      "entry_point": "grade",
+      "bug_lines": [
+        2,
+        4,
+        5
+      ],
+      "validation_tests": [
+        {
+          "call": "grade(95)",
+          "expected": "'A'",
+          "expects_exception": ""
+        },
+        {
+          "call": "grade(85)",
+          "expected": "'B'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "grade(50)",
+          "expected": "'C'",
+          "expects_exception": ""
+        },
+        {
+          "call": "grade(90)",
+          "expected": "'A'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'A'",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Conditions are checked in the wrong order.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM061",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the number of vowels in s (a, e, i, o, u, any case).",
+      "buggy_code": "def count_vowels(s):\n    return sum(1 for ch in s if ch in \"aeiou\")\n",
+      "fixed_code": "def count_vowels(s):\n    return sum(1 for ch in s.lower() if ch in \"aeiou\")\n",
+      "entry_point": "count_vowels",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "count_vowels('HELLO')",
+          "expected": "2",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "count_vowels('sky')",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "count_vowels('Aa')",
+          "expected": "2",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "2",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Upper-case vowels are ignored.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM062",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the median of a non-empty list.",
+      "buggy_code": "def median(xs):\n    values = sorted(xs)\n    mid = len(values) // 2\n    return values[mid]\n",
+      "fixed_code": "def median(xs):\n    values = sorted(xs)\n    mid = len(values) // 2\n    if len(values) % 2 == 0:\n        return (values[mid - 1] + values[mid]) / 2\n    return values[mid]\n",
+      "entry_point": "median",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "median([3, 1, 2])",
+          "expected": "2",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "median([4, 1, 3, 2])",
+          "expected": "2.5",
+          "expects_exception": ""
+        },
+        {
+          "call": "median([7])",
+          "expected": "7",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "2",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Even-length lists need the mean of two values.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM063",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the list with consecutive duplicates removed.",
+      "buggy_code": "def dedupe_runs(xs):\n    out = []\n    for x in xs:\n        if out and out[-1] == x:\n            out.append(x)\n        elif not out:\n            out.append(x)\n    return out\n",
+      "fixed_code": "def dedupe_runs(xs):\n    out = []\n    for x in xs:\n        if not out or out[-1] != x:\n            out.append(x)\n    return out\n",
+      "entry_point": "dedupe_runs",
+      "bug_lines": [
+        4,
+        5,
+        6
+      ],
+      "validation_tests": [
+        {
+          "call": "dedupe_runs([1, 1, 2, 2, 1])",
+          "expected": "[1, 2, 1]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "dedupe_runs([])",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "dedupe_runs([3])",
+          "expected": "[3]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[1, 2, 1]",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Condition keeps duplicates instead.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM064",
+      "split": "dev",
+      "category": "logical_error",
+      "difficulty": "hard",
+      "intended_behavior": "Return True if brackets ()[]{} in s are balanced.",
+      "buggy_code": "def balanced(s):\n    pairs = {\")\": \"(\", \"]\": \"[\", \"}\": \"{\"}\n    stack = []\n    for ch in s:\n        if ch in \"([{\":\n            stack.append(ch)\n        elif ch in pairs:\n            if not stack or stack.pop() != pairs[ch]:\n                return False\n    return True\n",
+      "fixed_code": "def balanced(s):\n    pairs = {\")\": \"(\", \"]\": \"[\", \"}\": \"{\"}\n    stack = []\n    for ch in s:\n        if ch in \"([{\":\n            stack.append(ch)\n        elif ch in pairs:\n            if not stack or stack.pop() != pairs[ch]:\n                return False\n    return not stack\n",
+      "entry_point": "balanced",
+      "bug_lines": [
+        10
+      ],
+      "validation_tests": [
+        {
+          "call": "balanced('([]{})')",
+          "expected": "True",
+          "expects_exception": ""
+        },
+        {
+          "call": "balanced('(()')",
+          "expected": "False",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "balanced(')(')",
+          "expected": "False",
+          "expects_exception": ""
+        },
+        {
+          "call": "balanced('')",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "True",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Unclosed opening brackets are ignored at the end.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM065",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the list of numbers from 1 to n where multiples of 3 are 'Fizz', of 5 'Buzz', of both 'FizzBuzz'.",
+      "buggy_code": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 3 == 0:\n            out.append(\"Fizz\")\n        elif i % 5 == 0:\n            out.append(\"Buzz\")\n        elif i % 15 == 0:\n            out.append(\"FizzBuzz\")\n        else:\n            out.append(i)\n    return out\n",
+      "fixed_code": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append(\"FizzBuzz\")\n        elif i % 3 == 0:\n            out.append(\"Fizz\")\n        elif i % 5 == 0:\n            out.append(\"Buzz\")\n        else:\n            out.append(i)\n    return out\n",
+      "entry_point": "fizzbuzz",
+      "bug_lines": [
+        4,
+        8,
+        9
+      ],
+      "validation_tests": [
+        {
+          "call": "fizzbuzz(15)[-1]",
+          "expected": "'FizzBuzz'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "fizzbuzz(5)",
+          "expected": "[1, 2, 'Fizz', 4, 'Buzz']",
+          "expects_exception": ""
+        },
+        {
+          "call": "fizzbuzz(0)",
+          "expected": "[]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'FizzBuzz'",
+      "buggy_failing_tests": 1,
+      "error_explanation": "The FizzBuzz case is unreachable after the Fizz case.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM066",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return a dict of word frequencies.",
+      "buggy_code": "def word_freq(text):\n    freq = {}\n    for word in text.split():\n        freq[word] = 1\n    return freq\n",
+      "fixed_code": "def word_freq(text):\n    freq = {}\n    for word in text.split():\n        freq[word] = freq.get(word, 0) + 1\n    return freq\n",
+      "entry_point": "word_freq",
+      "bug_lines": [
+        4
+      ],
+      "validation_tests": [
+        {
+          "call": "word_freq('a b a')",
+          "expected": "{'a': 2, 'b': 1}",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "word_freq('')",
+          "expected": "{}",
+          "expects_exception": ""
+        },
+        {
+          "call": "word_freq('x')",
+          "expected": "{'x': 1}",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "{'a': 2, 'b': 1}",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Counts are overwritten instead of incremented.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM067",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "hard",
+      "intended_behavior": "Merge two sorted lists into one sorted list.",
+      "buggy_code": "def merge(a, b):\n    i = j = 0\n    out = []\n    while i < len(a) and j < len(b):\n        if a[i] <= b[j]:\n            out.append(a[i])\n            i += 1\n        else:\n            out.append(b[j])\n            j += 1\n    return out\n",
+      "fixed_code": "def merge(a, b):\n    i = j = 0\n    out = []\n    while i < len(a) and j < len(b):\n        if a[i] <= b[j]:\n            out.append(a[i])\n            i += 1\n        else:\n            out.append(b[j])\n            j += 1\n    out.extend(a[i:])\n    out.extend(b[j:])\n    return out\n",
+      "entry_point": "merge",
+      "bug_lines": [
+        10
+      ],
+      "validation_tests": [
+        {
+          "call": "merge([1, 4], [2, 3, 9])",
+          "expected": "[1, 2, 3, 4, 9]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "merge([], [1])",
+          "expected": "[1]",
+          "expects_exception": ""
+        },
+        {
+          "call": "merge([5], [])",
+          "expected": "[5]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[1, 2, 3, 4, 9]",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Remaining elements are not appended.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM068",
+      "split": "dev",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the number of days in a month of a non-leap year (1-12).",
+      "buggy_code": "def days_in_month(m):\n    if m == 2:\n        return 28\n    if m in (4, 6, 9):\n        return 30\n    return 31\n",
+      "fixed_code": "def days_in_month(m):\n    if m == 2:\n        return 28\n    if m in (4, 6, 9, 11):\n        return 30\n    return 31\n",
+      "entry_point": "days_in_month",
+      "bug_lines": [
+        4
+      ],
+      "validation_tests": [
+        {
+          "call": "days_in_month(11)",
+          "expected": "30",
+          "expects_exception": ""
+        },
+        {
+          "call": "days_in_month(2)",
+          "expected": "28",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "days_in_month(1)",
+          "expected": "31",
+          "expects_exception": ""
+        },
+        {
+          "call": "days_in_month(4)",
+          "expected": "30",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "30",
+      "buggy_failing_tests": 1,
+      "error_explanation": "November (11) is missing from the 30-day months.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM069",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the discounted price for a percentage discount, e.g. (200, 10) -> 180.0.",
+      "buggy_code": "def discounted(price, percent):\n    return price - percent\n",
+      "fixed_code": "def discounted(price, percent):\n    return price * (1 - percent / 100)\n",
+      "entry_point": "discounted",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "discounted(200, 10)",
+          "expected": "180.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "discounted(50, 0)",
+          "expected": "50.0",
+          "expects_exception": ""
+        },
+        {
+          "call": "discounted(80, 50)",
+          "expected": "40.0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "180.0",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Subtracts the percentage as an amount.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM070",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return True if all elements are unique.",
+      "buggy_code": "def all_unique(xs):\n    return len(set(xs)) == len(xs) - 1\n",
+      "fixed_code": "def all_unique(xs):\n    return len(set(xs)) == len(xs)\n",
+      "entry_point": "all_unique",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "all_unique([1, 2, 3])",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "all_unique([1, 1])",
+          "expected": "False",
+          "expects_exception": ""
+        },
+        {
+          "call": "all_unique([])",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "True",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Off-by-one in the length comparison.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM071",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "hard",
+      "intended_behavior": "Rotate a list right by k positions.",
+      "buggy_code": "def rotate_right(xs, k):\n    if not xs:\n        return []\n    k %= len(xs)\n    return xs[k:] + xs[:k]\n",
+      "fixed_code": "def rotate_right(xs, k):\n    if not xs:\n        return []\n    k %= len(xs)\n    return xs[-k:] + xs[:-k] if k else list(xs)\n",
+      "entry_point": "rotate_right",
+      "bug_lines": [
+        5
+      ],
+      "validation_tests": [
+        {
+          "call": "rotate_right([1, 2, 3, 4], 1)",
+          "expected": "[4, 1, 2, 3]",
+          "expects_exception": ""
+        },
+        {
+          "call": "rotate_right([1, 2, 3], 3)",
+          "expected": "[1, 2, 3]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "rotate_right([], 2)",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "rotate_right([1, 2, 3], 4)",
+          "expected": "[3, 1, 2]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[4, 1, 2, 3]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Slices implement a left rotation instead of a right rotation.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM072",
+      "split": "dev",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the sum of the digits of a non-negative integer.",
+      "buggy_code": "def digit_sum(n):\n    total = 0\n    while n > 0:\n        total += n % 10\n        n = n / 10\n    return total\n",
+      "fixed_code": "def digit_sum(n):\n    total = 0\n    while n > 0:\n        total += n % 10\n        n = n // 10\n    return total\n",
+      "entry_point": "digit_sum",
+      "bug_lines": [
+        5
+      ],
+      "validation_tests": [
+        {
+          "call": "digit_sum(123)",
+          "expected": "6",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "digit_sum(0)",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "digit_sum(9)",
+          "expected": "9",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "6",
+      "buggy_failing_tests": 2,
+      "error_explanation": "True division produces floats; use //.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM073",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the list of even numbers squared.",
+      "buggy_code": "def even_squares(xs):\n    return [x * x for x in xs if x % 2]\n",
+      "fixed_code": "def even_squares(xs):\n    return [x * x for x in xs if x % 2 == 0]\n",
+      "entry_point": "even_squares",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "even_squares([1, 2, 3, 4])",
+          "expected": "[4, 16]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "even_squares([])",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "even_squares([0])",
+          "expected": "[0]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[4, 16]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Condition selects odd numbers.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM074",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "hard",
+      "intended_behavior": "Return the length of the longest run of equal consecutive elements.",
+      "buggy_code": "def longest_run(xs):\n    best = cur = 1\n    for i in range(1, len(xs)):\n        if xs[i] == xs[i - 1]:\n            cur += 1\n        else:\n            cur = 1\n    best = max(best, cur)\n    return best if xs else 0\n",
+      "fixed_code": "def longest_run(xs):\n    best = cur = 1\n    for i in range(1, len(xs)):\n        if xs[i] == xs[i - 1]:\n            cur += 1\n        else:\n            cur = 1\n        best = max(best, cur)\n    return best if xs else 0\n",
+      "entry_point": "longest_run",
+      "bug_lines": [
+        8
+      ],
+      "validation_tests": [
+        {
+          "call": "longest_run([1, 1, 1, 2])",
+          "expected": "3",
+          "expects_exception": ""
+        },
+        {
+          "call": "longest_run([1, 2, 2])",
+          "expected": "2",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "longest_run([])",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "longest_run([5])",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "3",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Best is only updated after the loop instead of at every step.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM075",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the string with each word capitalised.",
+      "buggy_code": "def title_case(s):\n    return \" \".join(w.capitalize() for w in s.split(\",\"))\n",
+      "fixed_code": "def title_case(s):\n    return \" \".join(w.capitalize() for w in s.split())\n",
+      "entry_point": "title_case",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "title_case('hello world')",
+          "expected": "'Hello World'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "title_case('a')",
+          "expected": "'A'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'Hello World'",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Splits on commas instead of whitespace.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM076",
+      "split": "dev",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the minimum and maximum as a tuple (min, max).",
+      "buggy_code": "def min_max(xs):\n    return (max(xs), min(xs))\n",
+      "fixed_code": "def min_max(xs):\n    return (min(xs), max(xs))\n",
+      "entry_point": "min_max",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "min_max([3, 1, 2])",
+          "expected": "(1, 3)",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "min_max([5])",
+          "expected": "(5, 5)",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "(1, 3)",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Tuple elements are swapped.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM077",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "hard",
+      "intended_behavior": "Return the number of ways to climb n stairs taking 1 or 2 steps.",
+      "buggy_code": "def climb(n):\n    if n <= 1:\n        return n\n    return climb(n - 1) + climb(n - 2)\n",
+      "fixed_code": "def climb(n):\n    if n <= 1:\n        return 1\n    return climb(n - 1) + climb(n - 2)\n",
+      "entry_point": "climb",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "climb(0)",
+          "expected": "1",
+          "expects_exception": ""
+        },
+        {
+          "call": "climb(1)",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "climb(4)",
+          "expected": "5",
+          "expects_exception": ""
+        },
+        {
+          "call": "climb(5)",
+          "expected": "8",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "1",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Base case for n = 0 must be 1.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM078",
+      "split": "eval",
+      "category": "potential_runtime_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the average of a list; return 0.0 for an empty list.",
+      "buggy_code": "def safe_average(values):\n    return sum(values) / len(values)\n",
+      "fixed_code": "def safe_average(values):\n    if not values:\n        return 0.0\n    return sum(values) / len(values)\n",
+      "entry_point": "safe_average",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "safe_average([])",
+          "expected": "0.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "safe_average([2, 4])",
+          "expected": "3.0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "0.0",
+      "buggy_failing_tests": 1,
+      "error_explanation": "ZeroDivisionError on an empty list.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM079",
+      "split": "eval",
+      "category": "potential_runtime_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the value for key, or None when the key is missing.",
+      "buggy_code": "def lookup(d, key):\n    return d[key]\n",
+      "fixed_code": "def lookup(d, key):\n    return d.get(key)\n",
+      "entry_point": "lookup",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "lookup({'a': 1}, 'a')",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "lookup({}, 'x')",
+          "expected": "None",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "1",
+      "buggy_failing_tests": 1,
+      "error_explanation": "KeyError for missing keys.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM080",
+      "split": "dev",
+      "category": "potential_runtime_error",
+      "difficulty": "easy",
+      "intended_behavior": "Return the first element, or None for an empty list.",
+      "buggy_code": "def first(xs):\n    return xs[0]\n",
+      "fixed_code": "def first(xs):\n    return xs[0] if xs else None\n",
+      "entry_point": "first",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "first([4, 5])",
+          "expected": "4",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "first([])",
+          "expected": "None",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "4",
+      "buggy_failing_tests": 1,
+      "error_explanation": "IndexError on an empty list.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM081",
+      "split": "eval",
+      "category": "potential_runtime_error",
+      "difficulty": "medium",
+      "intended_behavior": "Convert a string to int, returning the default for invalid input.",
+      "buggy_code": "def to_int(text, default=0):\n    return int(text)\n",
+      "fixed_code": "def to_int(text, default=0):\n    try:\n        return int(text)\n    except ValueError:\n        return default\n",
+      "entry_point": "to_int",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "to_int('42')",
+          "expected": "42",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "to_int('abc')",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "to_int('x', -1)",
+          "expected": "-1",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "42",
+      "buggy_failing_tests": 2,
+      "error_explanation": "ValueError is not handled.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM082",
+      "split": "eval",
+      "category": "potential_runtime_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the length of the name, or 0 when name is None.",
+      "buggy_code": "def name_length(name):\n    return len(name)\n",
+      "fixed_code": "def name_length(name):\n    return len(name) if name is not None else 0\n",
+      "entry_point": "name_length",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "name_length('Ana')",
+          "expected": "3",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "name_length(None)",
+          "expected": "0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "3",
+      "buggy_failing_tests": 1,
+      "error_explanation": "TypeError when name is None.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM083",
+      "split": "eval",
+      "category": "potential_runtime_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the ratio a / b, or None when b is zero.",
+      "buggy_code": "def ratio(a, b):\n    return a / b\n",
+      "fixed_code": "def ratio(a, b):\n    if b == 0:\n        return None\n    return a / b\n",
+      "entry_point": "ratio",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "ratio(6, 3)",
+          "expected": "2.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "ratio(1, 0)",
+          "expected": "None",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "2.0",
+      "buggy_failing_tests": 1,
+      "error_explanation": "ZeroDivisionError when b is zero.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM084",
+      "split": "dev",
+      "category": "potential_runtime_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return pairs of adjacent elements.",
+      "buggy_code": "def adjacent_pairs(xs):\n    return [(xs[i], xs[i + 1]) for i in range(len(xs))]\n",
+      "fixed_code": "def adjacent_pairs(xs):\n    return [(xs[i], xs[i + 1]) for i in range(len(xs) - 1)]\n",
+      "entry_point": "adjacent_pairs",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "adjacent_pairs([1, 2, 3])",
+          "expected": "[(1, 2), (2, 3)]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "adjacent_pairs([])",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "adjacent_pairs([1])",
+          "expected": "[]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[(1, 2), (2, 3)]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "IndexError on the last index.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM085",
+      "split": "eval",
+      "category": "potential_runtime_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the nested value d['user']['name'] or 'unknown'.",
+      "buggy_code": "def user_name(d):\n    return d[\"user\"][\"name\"]\n",
+      "fixed_code": "def user_name(d):\n    return d.get(\"user\", {}).get(\"name\", \"unknown\")\n",
+      "entry_point": "user_name",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "user_name({'user': {'name': 'Bo'}})",
+          "expected": "'Bo'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "user_name({})",
+          "expected": "'unknown'",
+          "expects_exception": ""
+        },
+        {
+          "call": "user_name({'user': {}})",
+          "expected": "'unknown'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'Bo'",
+      "buggy_failing_tests": 2,
+      "error_explanation": "KeyError for missing keys.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM086",
+      "split": "eval",
+      "category": "potential_runtime_error",
+      "difficulty": "hard",
+      "intended_behavior": "Return n factorial computed iteratively (must work for n up to 1500).",
+      "buggy_code": "def big_factorial(n):\n    return 1 if n == 0 else n * big_factorial(n - 1)\n",
+      "fixed_code": "def big_factorial(n):\n    result = 1\n    for i in range(2, n + 1):\n        result *= i\n    return result\n",
+      "entry_point": "big_factorial",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "big_factorial(5)",
+          "expected": "120",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "big_factorial(0)",
+          "expected": "1",
+          "expects_exception": ""
+        },
+        {
+          "call": "big_factorial(1500) % 1000003",
+          "expected": "526608",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "120",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Recursion exceeds the default recursion limit for large n (RecursionError).",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM087",
+      "split": "eval",
+      "category": "potential_runtime_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the element at index i, or the default when out of range.",
+      "buggy_code": "def get_at(xs, i, default=None):\n    return xs[i]\n",
+      "fixed_code": "def get_at(xs, i, default=None):\n    if -len(xs) <= i < len(xs):\n        return xs[i]\n    return default\n",
+      "entry_point": "get_at",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "get_at([1, 2], 1)",
+          "expected": "2",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "get_at([1, 2], 5)",
+          "expected": "None",
+          "expects_exception": ""
+        },
+        {
+          "call": "get_at([], 0, 'x')",
+          "expected": "'x'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "2",
+      "buggy_failing_tests": 2,
+      "error_explanation": "IndexError for out-of-range indices.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM088",
+      "split": "dev",
+      "category": "potential_runtime_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the uppercase version of every string in the list, skipping None.",
+      "buggy_code": "def upper_all(items):\n    return [item.upper() for item in items]\n",
+      "fixed_code": "def upper_all(items):\n    return [item.upper() for item in items if item is not None]\n",
+      "entry_point": "upper_all",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "upper_all(['a', None, 'b'])",
+          "expected": "['A', 'B']",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "upper_all([])",
+          "expected": "[]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "['A', 'B']",
+      "buggy_failing_tests": 1,
+      "error_explanation": "AttributeError on None items.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM089",
+      "split": "eval",
+      "category": "potential_runtime_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the percentage of passed tests, 0.0 when there are none.",
+      "buggy_code": "def pass_percentage(passed, total):\n    return round(100 * passed / total, 1)\n",
+      "fixed_code": "def pass_percentage(passed, total):\n    if total == 0:\n        return 0.0\n    return round(100 * passed / total, 1)\n",
+      "entry_point": "pass_percentage",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "pass_percentage(3, 4)",
+          "expected": "75.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "pass_percentage(0, 0)",
+          "expected": "0.0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "75.0",
+      "buggy_failing_tests": 1,
+      "error_explanation": "ZeroDivisionError when total is 0.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM090",
+      "split": "eval",
+      "category": "unreachable_code",
+      "difficulty": "easy",
+      "intended_behavior": "Return the list with every element doubled.",
+      "buggy_code": "def doubled(xs):\n    out = []\n    for x in xs:\n        continue\n        out.append(x * 2)\n    return out\n",
+      "fixed_code": "def doubled(xs):\n    out = []\n    for x in xs:\n        out.append(x * 2)\n    return out\n",
+      "entry_point": "doubled",
+      "bug_lines": [
+        4
+      ],
+      "validation_tests": [
+        {
+          "call": "doubled([1, 2])",
+          "expected": "[2, 4]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "doubled([])",
+          "expected": "[]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[2, 4]",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Statement after 'continue' can never run.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM091",
+      "split": "eval",
+      "category": "unreachable_code",
+      "difficulty": "easy",
+      "intended_behavior": "Return the string stripped and lower-cased.",
+      "buggy_code": "def normalise(s):\n    return s.strip()\n    s = s.lower()\n",
+      "fixed_code": "def normalise(s):\n    return s.strip().lower()\n",
+      "entry_point": "normalise",
+      "bug_lines": [
+        2,
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "normalise('  HeLLo ')",
+          "expected": "'hello'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "normalise('')",
+          "expected": "''",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'hello'",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Lower-casing after return is unreachable.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM092",
+      "split": "dev",
+      "category": "unreachable_code",
+      "difficulty": "medium",
+      "intended_behavior": "Return the index of the first negative number, or -1.",
+      "buggy_code": "def first_negative(xs):\n    for i, x in enumerate(xs):\n        if x < 0:\n            break\n            return i\n    return -1\n",
+      "fixed_code": "def first_negative(xs):\n    for i, x in enumerate(xs):\n        if x < 0:\n            return i\n    return -1\n",
+      "entry_point": "first_negative",
+      "bug_lines": [
+        4
+      ],
+      "validation_tests": [
+        {
+          "call": "first_negative([3, -1, -2])",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "first_negative([1, 2])",
+          "expected": "-1",
+          "expects_exception": ""
+        },
+        {
+          "call": "first_negative([])",
+          "expected": "-1",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "1",
+      "buggy_failing_tests": 1,
+      "error_explanation": "The return after break is unreachable.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM093",
+      "split": "eval",
+      "category": "unreachable_code",
+      "difficulty": "medium",
+      "intended_behavior": "Validate age: raise ValueError for negative ages, else return the age.",
+      "buggy_code": "def validate_age(age):\n    if age < 0:\n        return age\n        raise ValueError(\"age must be non-negative\")\n    return age\n",
+      "fixed_code": "def validate_age(age):\n    if age < 0:\n        raise ValueError(\"age must be non-negative\")\n    return age\n",
+      "entry_point": "validate_age",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "validate_age(30)",
+          "expected": "30",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "validate_age(0)",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "validate_age(-1)",
+          "expected": "",
+          "expects_exception": "ValueError"
+        }
+      ],
+      "expected_output": "30",
+      "buggy_failing_tests": 1,
+      "error_explanation": "raise after return is unreachable.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM094",
+      "split": "eval",
+      "category": "unreachable_code",
+      "difficulty": "medium",
+      "intended_behavior": "Return the sum of positive numbers only.",
+      "buggy_code": "def positive_sum(xs):\n    total = 0\n    for x in xs:\n        if x <= 0:\n            continue\n        else:\n            continue\n        total += x\n    return total\n",
+      "fixed_code": "def positive_sum(xs):\n    total = 0\n    for x in xs:\n        if x <= 0:\n            continue\n        total += x\n    return total\n",
+      "entry_point": "positive_sum",
+      "bug_lines": [
+        6,
+        7
+      ],
+      "validation_tests": [
+        {
+          "call": "positive_sum([1, -2, 3])",
+          "expected": "4",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "positive_sum([])",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "positive_sum([-1])",
+          "expected": "0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "4",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Accumulation is unreachable.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM095",
+      "split": "eval",
+      "category": "unused_variable",
+      "difficulty": "easy",
+      "intended_behavior": "Return the text without surrounding whitespace.",
+      "buggy_code": "def clean(text):\n    stripped = text.strip()\n    return text\n",
+      "fixed_code": "def clean(text):\n    stripped = text.strip()\n    return stripped\n",
+      "entry_point": "clean",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "clean('  hi  ')",
+          "expected": "'hi'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "clean('x')",
+          "expected": "'x'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'hi'",
+      "buggy_failing_tests": 1,
+      "error_explanation": "The stripped value is computed but never used.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM096",
+      "split": "dev",
+      "category": "unused_variable",
+      "difficulty": "medium",
+      "intended_behavior": "Return the list sorted in descending order.",
+      "buggy_code": "def desc(xs):\n    ordered = sorted(xs, reverse=True)\n    return sorted(xs)\n",
+      "fixed_code": "def desc(xs):\n    ordered = sorted(xs, reverse=True)\n    return ordered\n",
+      "entry_point": "desc",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "desc([1, 3, 2])",
+          "expected": "[3, 2, 1]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "desc([])",
+          "expected": "[]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[3, 2, 1]",
+      "buggy_failing_tests": 1,
+      "error_explanation": "'ordered' is unused; the ascending list is returned.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM097",
+      "split": "eval",
+      "category": "unused_variable",
+      "difficulty": "medium",
+      "intended_behavior": "Return the price including 18% tax, rounded to 2 decimals.",
+      "buggy_code": "def with_tax(price):\n    total = price * 1.18\n    return round(price, 2)\n",
+      "fixed_code": "def with_tax(price):\n    total = price * 1.18\n    return round(total, 2)\n",
+      "entry_point": "with_tax",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "with_tax(100)",
+          "expected": "118.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "with_tax(0)",
+          "expected": "0.0",
+          "expects_exception": ""
+        },
+        {
+          "call": "with_tax(9.99)",
+          "expected": "11.79",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "118.0",
+      "buggy_failing_tests": 3,
+      "error_explanation": "The taxed total is never used.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM098",
+      "split": "eval",
+      "category": "unused_variable",
+      "difficulty": "medium",
+      "intended_behavior": "Return the username in lower case without spaces.",
+      "buggy_code": "def username(name):\n    lowered = name.lower()\n    return name.replace(\" \", \"\")\n",
+      "fixed_code": "def username(name):\n    lowered = name.lower()\n    return lowered.replace(\" \", \"\")\n",
+      "entry_point": "username",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "username('Ada Lovelace')",
+          "expected": "'adalovelace'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "username('BOB')",
+          "expected": "'bob'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'adalovelace'",
+      "buggy_failing_tests": 2,
+      "error_explanation": "The lower-cased name is never used.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM099",
+      "split": "eval",
+      "category": "bad_practice",
+      "difficulty": "medium",
+      "intended_behavior": "Return a new list containing only the given item on every call without a list.",
+      "buggy_code": "def add_item(item, items=[]):\n    items.append(item)\n    return items\n",
+      "fixed_code": "def add_item(item, items=None):\n    if items is None:\n        items = []\n    items.append(item)\n    return items\n",
+      "entry_point": "add_item",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "(add_item(1), add_item(2))",
+          "expected": "([1], [2])",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "add_item(3, [0])",
+          "expected": "[0, 3]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "([1], [2])",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Mutable default argument is shared between calls.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM100",
+      "split": "dev",
+      "category": "bad_practice",
+      "difficulty": "medium",
+      "intended_behavior": "Return a dict counting items, starting fresh on each call.",
+      "buggy_code": "def tally(items, counts={}):\n    for item in items:\n        counts[item] = counts.get(item, 0) + 1\n    return counts\n",
+      "fixed_code": "def tally(items, counts=None):\n    counts = {} if counts is None else counts\n    for item in items:\n        counts[item] = counts.get(item, 0) + 1\n    return counts\n",
+      "entry_point": "tally",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "(tally(['a']), tally(['a']))",
+          "expected": "({'a': 1}, {'a': 1})",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "tally([])",
+          "expected": "{}",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "({'a': 1}, {'a': 1})",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Mutable default dict accumulates between calls.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM101",
+      "split": "eval",
+      "category": "bad_practice",
+      "difficulty": "medium",
+      "intended_behavior": "Return True when the value is None, False otherwise (also for 0 and '').",
+      "buggy_code": "def is_missing(value):\n    return not value\n",
+      "fixed_code": "def is_missing(value):\n    return value is None\n",
+      "entry_point": "is_missing",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "is_missing(None)",
+          "expected": "True",
+          "expects_exception": ""
+        },
+        {
+          "call": "is_missing(0)",
+          "expected": "False",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "is_missing('')",
+          "expected": "False",
+          "expects_exception": ""
+        },
+        {
+          "call": "is_missing('x')",
+          "expected": "False",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "True",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Truthiness treats 0 and '' as missing.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM102",
+      "split": "eval",
+      "category": "bad_practice",
+      "difficulty": "medium",
+      "intended_behavior": "Return a 3x3 grid of zeros where rows are independent lists.",
+      "buggy_code": "def zero_grid():\n    grid = [[0] * 3] * 3\n    grid[0][0] = 1\n    return grid\n",
+      "fixed_code": "def zero_grid():\n    grid = [[0] * 3 for _ in range(3)]\n    grid[0][0] = 1\n    return grid\n",
+      "entry_point": "zero_grid",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "zero_grid()",
+          "expected": "[[1, 0, 0], [0, 0, 0], [0, 0, 0]]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "zero_grid()[1]",
+          "expected": "[0, 0, 0]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[[1, 0, 0], [0, 0, 0], [0, 0, 0]]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "[[0]*3]*3 repeats the same row object.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM103",
+      "split": "eval",
+      "category": "bad_practice",
+      "difficulty": "hard",
+      "intended_behavior": "Remove all even numbers from the list and return it.",
+      "buggy_code": "def remove_evens(xs):\n    for x in xs:\n        if x % 2 == 0:\n            xs.remove(x)\n    return xs\n",
+      "fixed_code": "def remove_evens(xs):\n    return [x for x in xs if x % 2 != 0]\n",
+      "entry_point": "remove_evens",
+      "bug_lines": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "validation_tests": [
+        {
+          "call": "remove_evens([2, 4, 5, 6])",
+          "expected": "[5]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "remove_evens([1, 3])",
+          "expected": "[1, 3]",
+          "expects_exception": ""
+        },
+        {
+          "call": "remove_evens([])",
+          "expected": "[]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[5]",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Modifying a list while iterating over it skips elements.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM104",
+      "split": "dev",
+      "category": "bad_practice",
+      "difficulty": "medium",
+      "intended_behavior": "Return True if two floats are equal within 1e-9.",
+      "buggy_code": "def almost_equal(a, b):\n    return a == b\n",
+      "fixed_code": "def almost_equal(a, b):\n    return abs(a - b) <= 1e-9\n",
+      "entry_point": "almost_equal",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "almost_equal(0.1 + 0.2, 0.3)",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "almost_equal(1.0, 2.0)",
+          "expected": "False",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "True",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Exact float comparison fails due to rounding.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM105",
+      "split": "eval",
+      "category": "bad_practice",
+      "difficulty": "medium",
+      "intended_behavior": "Return a copy of the list with x appended, leaving the original unchanged.",
+      "buggy_code": "def appended_copy(xs, x):\n    copy = xs\n    copy.append(x)\n    return copy\n",
+      "fixed_code": "def appended_copy(xs, x):\n    copy = list(xs)\n    copy.append(x)\n    return copy\n",
+      "entry_point": "appended_copy",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "(lambda base: (appended_copy(base, 9), base))([1, 2])",
+          "expected": "([1, 2, 9], [1, 2])",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "(lambda base: (appended_copy(base, 'x'), base))([])",
+          "expected": "(['x'], [])",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "([1, 2, 9], [1, 2])",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Assignment aliases the list instead of copying it.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM106",
+      "split": "eval",
+      "category": "bad_practice",
+      "difficulty": "medium",
+      "intended_behavior": "Return a list of functions where the i-th returns i (for i in 0..2).",
+      "buggy_code": "def make_getters():\n    return [lambda: i for i in range(3)]\n",
+      "fixed_code": "def make_getters():\n    return [lambda i=i: i for i in range(3)]\n",
+      "entry_point": "make_getters",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "[f() for f in make_getters()]",
+          "expected": "[0, 1, 2]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "make_getters()[0]()",
+          "expected": "0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[0, 1, 2]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Late binding: every lambda sees the final value of i.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM107",
+      "split": "eval",
+      "category": "bad_practice",
+      "difficulty": "medium",
+      "intended_behavior": "Return the string repeated n times separated by commas.",
+      "buggy_code": "def repeat_csv(s, n):\n    out = \"\"\n    for _ in range(n):\n        out += s + \",\"\n    return out\n",
+      "fixed_code": "def repeat_csv(s, n):\n    return \",\".join([s] * n)\n",
+      "entry_point": "repeat_csv",
+      "bug_lines": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "validation_tests": [
+        {
+          "call": "repeat_csv('a', 3)",
+          "expected": "'a,a,a'",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "repeat_csv('x', 0)",
+          "expected": "''",
+          "expects_exception": ""
+        },
+        {
+          "call": "repeat_csv('b', 1)",
+          "expected": "'b'",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "'a,a,a'",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Trailing comma; quadratic concatenation in a loop.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM108",
+      "split": "dev",
+      "category": "logical_error",
+      "difficulty": "hard",
+      "intended_behavior": "Sort a list using bubble sort and return it.",
+      "buggy_code": "def bubble_sort(xs):\n    xs = list(xs)\n    n = len(xs)\n    for i in range(n):\n        for j in range(n - i - 2):\n            if xs[j] > xs[j + 1]:\n                xs[j], xs[j + 1] = xs[j + 1], xs[j]\n    return xs\n",
+      "fixed_code": "def bubble_sort(xs):\n    xs = list(xs)\n    n = len(xs)\n    for i in range(n):\n        for j in range(n - i - 1):\n            if xs[j] > xs[j + 1]:\n                xs[j], xs[j + 1] = xs[j + 1], xs[j]\n    return xs\n",
+      "entry_point": "bubble_sort",
+      "bug_lines": [
+        5
+      ],
+      "validation_tests": [
+        {
+          "call": "bubble_sort([3, 1, 2])",
+          "expected": "[1, 2, 3]",
+          "expects_exception": ""
+        },
+        {
+          "call": "bubble_sort([2, 1])",
+          "expected": "[1, 2]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "bubble_sort([])",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "bubble_sort([5, 4, 3, 2, 1])",
+          "expected": "[1, 2, 3, 4, 5]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[1, 2, 3]",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Inner range stops one element too early.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM109",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "hard",
+      "intended_behavior": "Return the greatest common divisor using Euclid's algorithm.",
+      "buggy_code": "def euclid(a, b):\n    while b:\n        a, b = b, a // b\n    return a\n",
+      "fixed_code": "def euclid(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n",
+      "entry_point": "euclid",
+      "bug_lines": [
+        3
+      ],
+      "validation_tests": [
+        {
+          "call": "euclid(48, 18)",
+          "expected": "6",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "euclid(7, 3)",
+          "expected": "1",
+          "expects_exception": ""
+        },
+        {
+          "call": "euclid(10, 0)",
+          "expected": "10",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "6",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Uses integer division instead of modulo.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM110",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "hard",
+      "intended_behavior": "Return the list flattened one level deep.",
+      "buggy_code": "def flatten(nested):\n    out = []\n    for sub in nested:\n        out.append(sub)\n    return out\n",
+      "fixed_code": "def flatten(nested):\n    out = []\n    for sub in nested:\n        out.extend(sub)\n    return out\n",
+      "entry_point": "flatten",
+      "bug_lines": [
+        4
+      ],
+      "validation_tests": [
+        {
+          "call": "flatten([[1, 2], [3]])",
+          "expected": "[1, 2, 3]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "flatten([])",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "flatten([[], [4]])",
+          "expected": "[4]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[1, 2, 3]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "append adds the sub-list instead of its items.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM111",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return True if the two strings are anagrams (ignore case).",
+      "buggy_code": "def anagrams(a, b):\n    return set(a.lower()) == set(b.lower())\n",
+      "fixed_code": "def anagrams(a, b):\n    return sorted(a.lower()) == sorted(b.lower())\n",
+      "entry_point": "anagrams",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "anagrams('Listen', 'Silent')",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "anagrams('aab', 'abb')",
+          "expected": "False",
+          "expects_exception": ""
+        },
+        {
+          "call": "anagrams('', '')",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "True",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Sets ignore letter counts.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM112",
+      "split": "dev",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the number of words in the sentence.",
+      "buggy_code": "def word_count(sentence):\n    return len(sentence.split(\" \"))\n",
+      "fixed_code": "def word_count(sentence):\n    return len(sentence.split())\n",
+      "entry_point": "word_count",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "word_count('a  b')",
+          "expected": "2",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "word_count('')",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "word_count('one')",
+          "expected": "1",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "2",
+      "buggy_failing_tests": 2,
+      "error_explanation": "split(' ') counts empty strings.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM113",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "hard",
+      "intended_behavior": "Return the matrix transposed.",
+      "buggy_code": "def transpose(m):\n    return [[m[i][j] for i in range(len(m[0]))] for j in range(len(m))]\n",
+      "fixed_code": "def transpose(m):\n    return [[m[i][j] for i in range(len(m))] for j in range(len(m[0]))]\n",
+      "entry_point": "transpose",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "transpose([[1, 2, 3], [4, 5, 6]])",
+          "expected": "[[1, 4], [2, 5], [3, 6]]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "transpose([[1]])",
+          "expected": "[[1]]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[[1, 4], [2, 5], [3, 6]]",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Row and column ranges are swapped.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM114",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the compound amount P*(1+r/100)**years rounded to 2 decimals.",
+      "buggy_code": "def compound(principal, rate, years):\n    return round(principal * (1 + rate / 100) * years, 2)\n",
+      "fixed_code": "def compound(principal, rate, years):\n    return round(principal * (1 + rate / 100) ** years, 2)\n",
+      "entry_point": "compound",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "compound(1000, 10, 2)",
+          "expected": "1210.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "compound(500, 0, 3)",
+          "expected": "500.0",
+          "expects_exception": ""
+        },
+        {
+          "call": "compound(100, 5, 0)",
+          "expected": "100.0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "1210.0",
+      "buggy_failing_tests": 3,
+      "error_explanation": "Multiplication instead of power.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM115",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the list of indexes where value occurs.",
+      "buggy_code": "def find_all(xs, value):\n    return [i for i, x in enumerate(xs) if x is value]\n",
+      "fixed_code": "def find_all(xs, value):\n    return [i for i, x in enumerate(xs) if x == value]\n",
+      "entry_point": "find_all",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "find_all([1000, 5, 1000], int('1000'))",
+          "expected": "[0, 2]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "find_all([], 1)",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "find_all(['a', 'b'], 'b')",
+          "expected": "[1]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[0, 2]",
+      "buggy_failing_tests": 1,
+      "error_explanation": "'is' compares identity instead of equality.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM116",
+      "split": "dev",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Clamp x into the inclusive range [low, high].",
+      "buggy_code": "def clamp(x, low, high):\n    return max(high, min(low, x))\n",
+      "fixed_code": "def clamp(x, low, high):\n    return max(low, min(high, x))\n",
+      "entry_point": "clamp",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "clamp(5, 0, 10)",
+          "expected": "5",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "clamp(-3, 0, 10)",
+          "expected": "0",
+          "expects_exception": ""
+        },
+        {
+          "call": "clamp(42, 0, 10)",
+          "expected": "10",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "5",
+      "buggy_failing_tests": 2,
+      "error_explanation": "low and high are swapped.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM117",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "hard",
+      "intended_behavior": "Return the run-length encoding as a list of (char, count) pairs.",
+      "buggy_code": "def rle(s):\n    if not s:\n        return []\n    out = []\n    current, count = s[0], 1\n    for ch in s[1:]:\n        if ch == current:\n            count += 1\n        else:\n            out.append((current, count))\n            current, count = ch, 1\n    return out\n",
+      "fixed_code": "def rle(s):\n    if not s:\n        return []\n    out = []\n    current, count = s[0], 1\n    for ch in s[1:]:\n        if ch == current:\n            count += 1\n        else:\n            out.append((current, count))\n            current, count = ch, 1\n    out.append((current, count))\n    return out\n",
+      "entry_point": "rle",
+      "bug_lines": [
+        11
+      ],
+      "validation_tests": [
+        {
+          "call": "rle('aaabcc')",
+          "expected": "[('a', 3), ('b', 1), ('c', 2)]",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "rle('')",
+          "expected": "[]",
+          "expects_exception": ""
+        },
+        {
+          "call": "rle('z')",
+          "expected": "[('z', 1)]",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "[('a', 3), ('b', 1), ('c', 2)]",
+      "buggy_failing_tests": 2,
+      "error_explanation": "The final run is never appended.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM118",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return the BMI weight / height**2 rounded to 1 decimal.",
+      "buggy_code": "def bmi(weight, height):\n    return round(weight / height * 2, 1)\n",
+      "fixed_code": "def bmi(weight, height):\n    return round(weight / height ** 2, 1)\n",
+      "entry_point": "bmi",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "bmi(70, 1.75)",
+          "expected": "22.9",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "bmi(50, 1.6)",
+          "expected": "19.5",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "22.9",
+      "buggy_failing_tests": 2,
+      "error_explanation": "'* 2' instead of '** 2'.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM119",
+      "split": "eval",
+      "category": "logical_error",
+      "difficulty": "medium",
+      "intended_behavior": "Return True if year-month-day string 'YYYY-MM-DD' has a valid month (1-12).",
+      "buggy_code": "def valid_month(date):\n    month = int(date.split(\"-\")[2])\n    return 1 <= month <= 12\n",
+      "fixed_code": "def valid_month(date):\n    month = int(date.split(\"-\")[1])\n    return 1 <= month <= 12\n",
+      "entry_point": "valid_month",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "valid_month('2024-13-01')",
+          "expected": "False",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "valid_month('2024-02-30')",
+          "expected": "True",
+          "expects_exception": ""
+        },
+        {
+          "call": "valid_month('2024-12-12')",
+          "expected": "True",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "False",
+      "buggy_failing_tests": 2,
+      "error_explanation": "Uses the day field instead of the month field.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM120",
+      "split": "dev",
+      "category": "type_issue",
+      "difficulty": "medium",
+      "intended_behavior": "Return the total cost of items given as (name, price) tuples.",
+      "buggy_code": "def total_cost(items):\n    return sum(items)\n",
+      "fixed_code": "def total_cost(items):\n    return sum(price for _name, price in items)\n",
+      "entry_point": "total_cost",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "total_cost([('a', 2.5), ('b', 1.5)])",
+          "expected": "4.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "total_cost([])",
+          "expected": "0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "4.0",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Cannot sum tuples with an int start value.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM121",
+      "split": "eval",
+      "category": "potential_runtime_error",
+      "difficulty": "hard",
+      "intended_behavior": "Return the average word length of a sentence, 0.0 for no words.",
+      "buggy_code": "def avg_word_length(sentence):\n    words = sentence.split()\n    return sum(len(w) for w in words) / len(words)\n",
+      "fixed_code": "def avg_word_length(sentence):\n    words = sentence.split()\n    if not words:\n        return 0.0\n    return sum(len(w) for w in words) / len(words)\n",
+      "entry_point": "avg_word_length",
+      "bug_lines": [
+        2
+      ],
+      "validation_tests": [
+        {
+          "call": "avg_word_length('ab abcd')",
+          "expected": "3.0",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "avg_word_length('   ')",
+          "expected": "0.0",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "3.0",
+      "buggy_failing_tests": 1,
+      "error_explanation": "ZeroDivisionError for blank sentences.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    },
+    {
+      "id": "CM122",
+      "split": "eval",
+      "category": "undefined_variable",
+      "difficulty": "hard",
+      "intended_behavior": "Return the count of each word, using a helper normalise function.",
+      "buggy_code": "def count_words(text):\n    counts = {}\n    for word in text.split():\n        key = normalise(word)\n        counts[key] = counts.get(key, 0) + 1\n    return counts\n",
+      "fixed_code": "def normalise(word):\n    return word.strip(\".,!?\").lower()\n\n\ndef count_words(text):\n    counts = {}\n    for word in text.split():\n        key = normalise(word)\n        counts[key] = counts.get(key, 0) + 1\n    return counts\n",
+      "entry_point": "normalise",
+      "bug_lines": [
+        1
+      ],
+      "validation_tests": [
+        {
+          "call": "count_words('Hi hi, there!')",
+          "expected": "{'hi': 2, 'there': 1}",
+          "expects_exception": ""
+        }
+      ],
+      "heldout_tests": [
+        {
+          "call": "count_words('')",
+          "expected": "{}",
+          "expects_exception": ""
+        }
+      ],
+      "expected_output": "{'hi': 2, 'there': 1}",
+      "buggy_failing_tests": 1,
+      "error_explanation": "Helper function 'normalise' is not defined.",
+      "source": "CodeMind AI custom dataset (original examples)"
+    }
+  ]
+}

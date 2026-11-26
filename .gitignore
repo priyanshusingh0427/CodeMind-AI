@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+
+# Local configuration and data
+.env
+data/*.db
+data/*.db-*
+data/user_settings.json
+logs/*.log*
+reports/*
+!reports/.gitkeep
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+data/setup_check.json

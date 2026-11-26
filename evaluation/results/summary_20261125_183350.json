@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "timestamp": "2026-11-25T18:33:50",
+    "split": "eval",
+    "dataset": "datasets/benchmark.json",
+    "n_examples": 92,
+    "methods": [
+      "static",
+      "llm_only",
+      "hybrid"
+    ],
+    "model": null,
+    "max_repair_attempts": 3,
+    "pylint": true,
+    "sandbox": true,
+    "python": "3.13.18"
+  },
+  "methods": {
+    "static": {
+      "status": "measured",
+      "n_examples": 92,
+      "accuracy": 0.6902,
+      "precision": 1.0,
+      "recall": 0.3804,
+      "f1": 0.5512,
+      "false_positive_rate": 0.0,
+      "tp": 35,
+      "fp": 0,
+      "tn": 92,
+      "fn": 57,
+      "localization_accuracy": 0.3587,
+      "repair_rate": null,
+      "test_pass_rate": null,
+      "avg_response_time_s": 0.2878,
+      "avg_cc_change": null,
+      "avg_mi_change": null
+    },
+    "llm_only": {
+      "status": "not_run",
+      "reason": "Cannot reach Ollama at http://127.0.0.1:9: ConnectionError. Start it with `ollama serve`."
+    },
+    "hybrid": {
+      "status": "not_run",
+      "reason": "Cannot reach Ollama at http://127.0.0.1:9: ConnectionError. Start it with `ollama serve`."
+    }
+  },
+  "per_category": {
+    "static": {
+      "bad_practice": {
+        "n": 7,
+        "recall": 0.2857,
+        "repair_rate": null
+      },
+      "indentation_error": {
+        "n": 6,
+        "recall": 0.6667,
+        "repair_rate": null
+      },
+      "logical_error": {
+        "n": 32,
+        "recall": 0.0,
+        "repair_rate": null
+      },
+      "missing_import": {
+        "n": 6,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "potential_runtime_error": {
+        "n": 10,
+        "recall": 0.2,
+        "repair_rate": null
+      },
+      "syntax_error": {
+        "n": 8,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "type_issue": {
+        "n": 8,
+        "recall": 0.0,
+        "repair_rate": null
+      },
+      "undefined_variable": {
+        "n": 8,
+        "recall": 0.875,
+        "repair_rate": null
+      },
+      "unreachable_code": {
+        "n": 4,
+        "recall": 0.75,
+        "repair_rate": null
+      },
+      "unused_variable": {
+        "n": 3,
+        "recall": 1.0,
+        "repair_rate": null
+      }
+    },
+    "llm_only": null,
+    "hybrid": null
+  },
+  "notes": [
+    "Static baseline performs no repair, so repair metrics are not applicable (null).",
+    "Method 'llm_only' skipped: Cannot reach Ollama at http://127.0.0.1:9: ConnectionError. Start it with `ollama serve`.",
+    "Method 'hybrid' skipped: Cannot reach Ollama at http://127.0.0.1:9: ConnectionError. Start it with `ollama serve`."
+  ]
+}

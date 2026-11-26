@@ -1,0 +1,16 @@
+# CodeMind AI – tested with Python 3.11–3.13 (developed on 3.13, sandbox image uses 3.11).
+# Versions are ranges known to be mutually compatible; see docs/installation.md.
+streamlit>=1.50,<2.0          # UI (st.navigation, width="stretch")
+streamlit-ace>=0.1.1,<0.2     # syntax-highlighted code editor with line numbers
+requests>=2.31,<3.0           # Ollama HTTP API client
+pydantic>=2.6,<3.0            # structured LLM response validation
+pylint>=3.2,<5.0              # static analysis
+radon>=6.0,<7.0               # cyclomatic complexity, maintainability index, Halstead
+pytest>=8.0,<10.0             # unit tests and sandboxed test execution
+SQLAlchemy>=2.0,<3.0          # ORM over SQLite
+plotly>=5.20,<8.0             # interactive charts
+pandas>=2.2,<4.0              # tabular data
+numpy>=1.26,<3.0              # numeric support for pandas/scikit-learn
+scikit-learn>=1.4,<2.0        # precision / recall / F1 / confusion matrix
+reportlab>=4.0,<6.0           # PDF reports
+python-dotenv>=1.0,<2.0       # optional .env configuration

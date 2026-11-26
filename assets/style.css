@@ -1,0 +1,110 @@
+/* CodeMind AI – dark developer dashboard theme */
+:root {
+  --cm-bg: #0F1424;
+  --cm-panel: #161D33;
+  --cm-panel-2: #1C2440;
+  --cm-border: #2A3358;
+  --cm-text: #E6E9F5;
+  --cm-muted: #9AA3C2;
+  --cm-purple: #7C6CFF;
+  --cm-blue: #4C8DFF;
+  --cm-green: #2EC4B6;
+  --cm-red: #FF5C7A;
+  --cm-orange: #FF8A4C;
+  --cm-yellow: #F5C451;
+}
+
+.block-container { padding-top: 2rem; max-width: 1400px; }
+section[data-testid="stSidebar"] { background: linear-gradient(180deg, #121935 0%, #0F1424 100%);
+  border-right: 1px solid var(--cm-border); }
+h1, h2, h3 { letter-spacing: -0.01em; }
+code, pre { font-family: "JetBrains Mono", "Fira Code", Consolas, monospace !important; }
+
+/* Header */
+.cm-header { display: flex; align-items: center; gap: 16px; margin-bottom: 1.2rem; }
+.cm-header-icon { font-size: 2rem; width: 56px; height: 56px; border-radius: 14px; display: flex;
+  align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(124,108,255,.25), rgba(76,141,255,.25));
+  border: 1px solid var(--cm-border); }
+.cm-header h1 { margin: 0; padding: 0; font-size: 1.75rem; color: var(--cm-text); }
+.cm-header p { margin: 2px 0 0 0; color: var(--cm-muted); font-size: .95rem; }
+
+/* Hero */
+.cm-hero { padding: 28px 30px; border-radius: 18px; border: 1px solid var(--cm-border);
+  background: radial-gradient(1200px 300px at 0% 0%, rgba(124,108,255,.25), transparent),
+              radial-gradient(800px 300px at 100% 100%, rgba(76,141,255,.18), transparent), var(--cm-panel);
+  margin-bottom: 1.2rem; }
+.cm-hero h1 { margin: 0 0 6px 0; font-size: 2.1rem; }
+.cm-hero p { color: var(--cm-muted); margin: 0; font-size: 1.02rem; }
+.cm-gradient-text { background: linear-gradient(90deg, #A79BFF, #6FA8FF); -webkit-background-clip: text;
+  background-clip: text; color: transparent; }
+
+/* Metric cards */
+.cm-card-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;
+  margin: 6px 0 14px 0; }
+.cm-card { background: var(--cm-panel); border: 1px solid var(--cm-border); border-radius: 14px;
+  padding: 14px 16px; }
+.cm-card-label { color: var(--cm-muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; }
+.cm-card-value { font-size: 1.6rem; font-weight: 700; color: var(--cm-text); margin-top: 4px; }
+.cm-card-hint { color: var(--cm-muted); font-size: .78rem; margin-top: 2px; min-height: 1em; }
+.cm-tone-purple { border-top: 3px solid var(--cm-purple); }
+.cm-tone-blue { border-top: 3px solid var(--cm-blue); }
+.cm-tone-green { border-top: 3px solid var(--cm-green); }
+.cm-tone-red { border-top: 3px solid var(--cm-red); }
+.cm-tone-yellow { border-top: 3px solid var(--cm-yellow); }
+.cm-tone-default { border-top: 3px solid var(--cm-border); }
+
+/* Badges and pills */
+.cm-badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: .72rem; font-weight: 600;
+  margin-right: 6px; border: 1px solid transparent; }
+.cm-badge-critical { background: rgba(255,92,122,.15); color: #FF8FA5; border-color: rgba(255,92,122,.4); }
+.cm-badge-error { background: rgba(255,138,76,.15); color: #FFB089; border-color: rgba(255,138,76,.4); }
+.cm-badge-warning { background: rgba(245,196,81,.13); color: #F7D27A; border-color: rgba(245,196,81,.4); }
+.cm-badge-info { background: rgba(94,168,255,.13); color: #8EC2FF; border-color: rgba(94,168,255,.4); }
+.cm-badge-cat { background: rgba(154,163,194,.12); color: #C3C9E0; }
+.cm-badge-ok { background: rgba(46,196,182,.14); color: #6FE0D5; }
+.cm-badge-ai { background: rgba(124,108,255,.18); color: #B8AEFF; }
+.cm-badge-warn { background: rgba(245,196,81,.13); color: #F7D27A; }
+.cm-pill { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: .8rem; margin: 2px 6px 2px 0;
+  border: 1px solid var(--cm-border); background: var(--cm-panel-2); }
+.cm-pill-ok { color: #6FE0D5; }
+.cm-pill-off { color: #FF8FA5; }
+
+/* Issues */
+.cm-issue { background: var(--cm-panel); border: 1px solid var(--cm-border); border-left: 4px solid var(--cm-border);
+  border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; }
+.cm-sev-critical { border-left-color: var(--cm-red); }
+.cm-sev-error { border-left-color: var(--cm-orange); }
+.cm-sev-warning { border-left-color: var(--cm-yellow); }
+.cm-sev-info { border-left-color: #5EA8FF; }
+.cm-issue-top { display: flex; align-items: center; flex-wrap: wrap; gap: 2px; }
+.cm-line { font-family: Consolas, monospace; color: var(--cm-muted); margin-right: 10px; font-size: .85rem; }
+.cm-src { color: var(--cm-muted); font-size: .72rem; margin-left: auto; }
+.cm-issue-msg { margin-top: 6px; color: var(--cm-text); font-size: .92rem; }
+.cm-issue-fix { margin-top: 4px; color: var(--cm-muted); font-size: .85rem; }
+
+/* Diff */
+.cm-diff-wrap { max-height: 560px; overflow: auto; border: 1px solid var(--cm-border); border-radius: 12px; }
+.cm-diff { width: 100%; border-collapse: collapse; font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: .82rem; background: #0C1120; }
+.cm-diff th { position: sticky; top: 0; background: var(--cm-panel-2); color: var(--cm-muted); text-align: left;
+  padding: 6px 10px; font-weight: 600; z-index: 1; }
+.cm-diff td { padding: 1px 6px; vertical-align: top; white-space: pre; }
+.cm-ln { color: #56608A; text-align: right; width: 38px; user-select: none; }
+.cm-mark { color: var(--cm-muted); width: 14px; user-select: none; }
+.cm-code { color: #D5DAEC; width: 48%; }
+.cm-add { background: rgba(46,196,120,.16); }
+.cm-del { background: rgba(255,92,122,.16); }
+.cm-empty { background: rgba(255,255,255,.02); }
+.cm-add-chr { background: rgba(46,196,120,.45); border-radius: 2px; }
+.cm-del-chr { background: rgba(255,92,122,.45); border-radius: 2px; }
+
+/* Misc */
+.cm-section-title { font-size: 1.05rem; font-weight: 600; margin: 8px 0 6px 0; color: var(--cm-text); }
+.cm-muted { color: var(--cm-muted); font-size: .88rem; }
+.cm-step { display: inline-block; padding: 6px 10px; margin: 3px; border-radius: 8px; background: var(--cm-panel-2);
+  border: 1px solid var(--cm-border); font-size: .82rem; color: var(--cm-text); }
+.cm-arrow { color: var(--cm-purple); margin: 0 2px; }
+div[data-testid="stExpander"] details { border-color: var(--cm-border) !important; border-radius: 12px; }
+.stTabs [data-baseweb="tab-list"] { gap: 6px; }
+.stTabs [data-baseweb="tab"] { background: var(--cm-panel); border-radius: 10px 10px 0 0; padding: 6px 14px; }

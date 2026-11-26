@@ -1,0 +1,251 @@
+{
+  "meta": {
+    "timestamp": "2026-11-26T14:07:00",
+    "split": "eval",
+    "dataset": "datasets/benchmark.json",
+    "n_examples": 92,
+    "methods": [
+      "static",
+      "llm_only",
+      "hybrid"
+    ],
+    "model": "qwen2.5-coder:1.5b",
+    "max_repair_attempts": 3,
+    "temperature": 0.1,
+    "pylint": true,
+    "sandbox": false,
+    "python": "3.11.9",
+    "platform": "win32",
+    "kind": "main"
+  },
+  "methods": {
+    "static": {
+      "status": "measured",
+      "run_at": "2026-11-26T13:32:06",
+      "model": null,
+      "sandbox_scoring": false,
+      "n_examples": 92,
+      "accuracy": 0.6902,
+      "precision": 1.0,
+      "recall": 0.3804,
+      "f1": 0.5512,
+      "false_positive_rate": 0.0,
+      "tp": 35,
+      "fp": 0,
+      "tn": 92,
+      "fn": 57,
+      "localization_accuracy": 0.3587,
+      "repair_rate": null,
+      "test_pass_rate": null,
+      "avg_response_time_s": 0.5403,
+      "avg_cc_change": null,
+      "avg_mi_change": null
+    },
+    "llm_only": {
+      "status": "measured",
+      "run_at": "2026-11-26T13:44:15",
+      "model": "qwen2.5-coder:1.5b",
+      "sandbox_scoring": false,
+      "n_examples": 92,
+      "accuracy": 0.5326,
+      "precision": 0.5176,
+      "recall": 0.9565,
+      "f1": 0.6718,
+      "false_positive_rate": 0.8913,
+      "tp": 88,
+      "fp": 82,
+      "tn": 10,
+      "fn": 4,
+      "localization_accuracy": 0.8587,
+      "repair_rate": null,
+      "test_pass_rate": null,
+      "avg_response_time_s": 2.911,
+      "avg_cc_change": 0.1346,
+      "avg_mi_change": -1.5113
+    },
+    "hybrid": {
+      "status": "measured",
+      "run_at": "2026-11-26T14:07:00",
+      "model": "qwen2.5-coder:1.5b",
+      "sandbox_scoring": false,
+      "n_examples": 92,
+      "accuracy": 0.5109,
+      "precision": 0.5055,
+      "recall": 1.0,
+      "f1": 0.6715,
+      "false_positive_rate": 0.9783,
+      "tp": 92,
+      "fp": 90,
+      "tn": 2,
+      "fn": 0,
+      "localization_accuracy": 0.9022,
+      "repair_rate": null,
+      "test_pass_rate": null,
+      "avg_response_time_s": 3.598,
+      "avg_cc_change": 0.2115,
+      "avg_mi_change": -1.0936
+    }
+  },
+  "per_category": {
+    "static": {
+      "bad_practice": {
+        "n": 7,
+        "recall": 0.2857,
+        "repair_rate": null
+      },
+      "indentation_error": {
+        "n": 6,
+        "recall": 0.6667,
+        "repair_rate": null
+      },
+      "logical_error": {
+        "n": 32,
+        "recall": 0.0,
+        "repair_rate": null
+      },
+      "missing_import": {
+        "n": 6,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "potential_runtime_error": {
+        "n": 10,
+        "recall": 0.2,
+        "repair_rate": null
+      },
+      "syntax_error": {
+        "n": 8,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "type_issue": {
+        "n": 8,
+        "recall": 0.0,
+        "repair_rate": null
+      },
+      "undefined_variable": {
+        "n": 8,
+        "recall": 0.875,
+        "repair_rate": null
+      },
+      "unreachable_code": {
+        "n": 4,
+        "recall": 0.75,
+        "repair_rate": null
+      },
+      "unused_variable": {
+        "n": 3,
+        "recall": 1.0,
+        "repair_rate": null
+      }
+    },
+    "llm_only": {
+      "bad_practice": {
+        "n": 7,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "indentation_error": {
+        "n": 6,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "logical_error": {
+        "n": 32,
+        "recall": 0.9375,
+        "repair_rate": null
+      },
+      "missing_import": {
+        "n": 6,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "potential_runtime_error": {
+        "n": 10,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "syntax_error": {
+        "n": 8,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "type_issue": {
+        "n": 8,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "undefined_variable": {
+        "n": 8,
+        "recall": 0.875,
+        "repair_rate": null
+      },
+      "unreachable_code": {
+        "n": 4,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "unused_variable": {
+        "n": 3,
+        "recall": 0.6667,
+        "repair_rate": null
+      }
+    },
+    "hybrid": {
+      "bad_practice": {
+        "n": 7,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "indentation_error": {
+        "n": 6,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "logical_error": {
+        "n": 32,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "missing_import": {
+        "n": 6,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "potential_runtime_error": {
+        "n": 10,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "syntax_error": {
+        "n": 8,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "type_issue": {
+        "n": 8,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "undefined_variable": {
+        "n": 8,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "unreachable_code": {
+        "n": 4,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "unused_variable": {
+        "n": 3,
+        "recall": 1.0,
+        "repair_rate": null
+      }
+    }
+  },
+  "notes": [
+    "Sandbox unavailable (Docker is not installed: static-analysis-only mode.); repair metrics were NOT measured.",
+    "Static baseline performs no repair, so repair metrics are not applicable (null)."
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "timestamp": "2026-11-26T13:30:05",
+    "split": "eval",
+    "dataset": "datasets/benchmark.json",
+    "n_examples": 10,
+    "methods": [
+      "static",
+      "llm_only",
+      "hybrid"
+    ],
+    "model": "qwen2.5-coder:1.5b",
+    "max_repair_attempts": 3,
+    "temperature": 0.1,
+    "pylint": true,
+    "sandbox": false,
+    "python": "3.11.9",
+    "platform": "win32",
+    "kind": "trial"
+  },
+  "methods": {
+    "static": {
+      "status": "measured",
+      "run_at": "2026-11-26T13:28:13",
+      "model": null,
+      "sandbox_scoring": false,
+      "n_examples": 10,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_positive_rate": 0.0,
+      "tp": 10,
+      "fp": 0,
+      "tn": 10,
+      "fn": 0,
+      "localization_accuracy": 0.9,
+      "repair_rate": null,
+      "test_pass_rate": null,
+      "avg_response_time_s": 0.0011,
+      "avg_cc_change": null,
+      "avg_mi_change": null
+    },
+    "llm_only": {
+      "status": "measured",
+      "run_at": "2026-11-26T13:29:02",
+      "model": "qwen2.5-coder:1.5b",
+      "sandbox_scoring": false,
+      "n_examples": 10,
+      "accuracy": 0.5,
+      "precision": 0.5,
+      "recall": 0.9,
+      "f1": 0.6429,
+      "false_positive_rate": 0.9,
+      "tp": 9,
+      "fp": 9,
+      "tn": 1,
+      "fn": 1,
+      "localization_accuracy": 0.9,
+      "repair_rate": null,
+      "test_pass_rate": null,
+      "avg_response_time_s": 2.2671,
+      "avg_cc_change": null,
+      "avg_mi_change": null
+    },
+    "hybrid": {
+      "status": "measured",
+      "run_at": "2026-11-26T13:30:05",
+      "model": "qwen2.5-coder:1.5b",
+      "sandbox_scoring": false,
+      "n_examples": 10,
+      "accuracy": 0.5,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6667,
+      "false_positive_rate": 1.0,
+      "tp": 10,
+      "fp": 10,
+      "tn": 0,
+      "fn": 0,
+      "localization_accuracy": 0.9,
+      "repair_rate": null,
+      "test_pass_rate": null,
+      "avg_response_time_s": 3.0057,
+      "avg_cc_change": null,
+      "avg_mi_change": null
+    }
+  },
+  "per_category": {
+    "static": {
+      "indentation_error": {
+        "n": 2,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "syntax_error": {
+        "n": 8,
+        "recall": 1.0,
+        "repair_rate": null
+      }
+    },
+    "llm_only": {
+      "indentation_error": {
+        "n": 2,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "syntax_error": {
+        "n": 8,
+        "recall": 0.875,
+        "repair_rate": null
+      }
+    },
+    "hybrid": {
+      "indentation_error": {
+        "n": 2,
+        "recall": 1.0,
+        "repair_rate": null
+      },
+      "syntax_error": {
+        "n": 8,
+        "recall": 1.0,
+        "repair_rate": null
+      }
+    }
+  },
+  "notes": [
+    "Sandbox unavailable (Docker is not installed: static-analysis-only mode.); repair metrics were NOT measured.",
+    "Static baseline performs no repair, so repair metrics are not applicable (null)."
+  ]
+}

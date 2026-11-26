@@ -1,0 +1,89 @@
+{
+  "description": "Sample buggy programs for the CodeMind AI editor (demo only; not used for evaluation).",
+  "samples": [
+    {
+      "id": "S01",
+      "title": "Undefined variable (typo)",
+      "category": "undefined_variable",
+      "expected_behavior": "Return the average of a list of numbers.",
+      "code": "def average(numbers):\n    total = 0\n    for n in numbers:\n        total += n\n    return totl / len(numbers)\n\n\nprint(average([1, 2, 3]))\n"
+    },
+    {
+      "id": "S02",
+      "title": "Missing colon (syntax error)",
+      "category": "syntax_error",
+      "expected_behavior": "Return True if n is even, otherwise False.",
+      "code": "def is_even(n)\n    return n % 2 == 0\n"
+    },
+    {
+      "id": "S03",
+      "title": "Indentation error",
+      "category": "indentation_error",
+      "expected_behavior": "Return the larger of two numbers.",
+      "code": "def maximum(a, b):\n    if a > b:\n    return a\n    return b\n"
+    },
+    {
+      "id": "S04",
+      "title": "Off-by-one in loop (logic)",
+      "category": "logical_error",
+      "expected_behavior": "Return the sum of integers from 1 to n inclusive.",
+      "code": "def sum_to_n(n):\n    total = 0\n    for i in range(1, n):\n        total += i\n    return total\n"
+    },
+    {
+      "id": "S05",
+      "title": "Missing import",
+      "category": "missing_import",
+      "expected_behavior": "Return the hypotenuse of a right triangle.",
+      "code": "def hypotenuse(a, b):\n    return math.sqrt(a ** 2 + b ** 2)\n"
+    },
+    {
+      "id": "S06",
+      "title": "Type error: str + int",
+      "category": "type_issue",
+      "expected_behavior": "Return a greeting like 'Alice is 30 years old'.",
+      "code": "def describe(name, age):\n    return name + \" is \" + age + \" years old\"\n"
+    },
+    {
+      "id": "S07",
+      "title": "Mutable default argument",
+      "category": "bad_practice",
+      "expected_behavior": "Return a new list containing only the given item each time it is called without a list.",
+      "code": "def add_item(item, items=[]):\n    items.append(item)\n    return items\n"
+    },
+    {
+      "id": "S08",
+      "title": "Unreachable code and unused variable",
+      "category": "unreachable_code",
+      "expected_behavior": "Return the factorial of n (n >= 0).",
+      "code": "def factorial(n):\n    result = 1\n    temp = 0\n    for i in range(2, n + 1):\n        result *= i\n    return result\n    print(\"done\")\n"
+    },
+    {
+      "id": "S09",
+      "title": "Potential ZeroDivisionError",
+      "category": "potential_runtime_error",
+      "expected_behavior": "Return the average of a list; return 0.0 for an empty list.",
+      "code": "def safe_average(values):\n    return sum(values) / len(values)\n"
+    },
+    {
+      "id": "S10",
+      "title": "Inefficient algorithm (optimisation)",
+      "category": "bad_practice",
+      "expected_behavior": "Return a list of the unique items in their original order.",
+      "code": "def unique(items):\n    result = []\n    for i in range(len(items)):\n        if items[i] not in result:\n            result.append(items[i])\n    return result\n\n\ndef join_words(words):\n    text = \"\"\n    for w in words:\n        text += w + \" \"\n    return text.strip()\n"
+    },
+    {
+      "id": "S11",
+      "title": "Wrong comparison in binary search",
+      "category": "logical_error",
+      "expected_behavior": "Return the index of target in the sorted list, or -1 if absent.",
+      "code": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low < high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1\n"
+    },
+    {
+      "id": "S12",
+      "title": "Exponential recursion",
+      "category": "bad_practice",
+      "expected_behavior": "Return the n-th Fibonacci number (fib(0)=0, fib(1)=1).",
+      "code": "def fib(n):\n    if n < 2:\n        return n\n    return fib(n - 1) + fib(n - 2)\n"
+    }
+  ]
+}
